@@ -10,7 +10,13 @@ The game should be
 - Extendable! Ships and levels should be addable easily by players
 
 ## Levels
-Levels should be self-contained units, with different objectives that the players need to achieve in order to succeed. They should follow a "free world" format.
+Levels should be self-contained units, with different objectives that the players need to achieve in order to succeed. They should follow a "free world" format. For the time being, despite being a "space" shooter, I forsee most of the levels taking place on the surface of planets, moons, etc, to give the players a sense of orientation via the ground.
+
+### Objectives
+This is a short list of some of the objectives I would expect players might have to fulfill in order to progress through the level.
+- Survive: A bunch of enemies spawn, players have to defeat all of them (or at least some percentage of them) before moving on
+- Destroy: There's an enemy building/ship/whatever, and it needs to get blown up. Probably on a timer or something
+- Protect: There's a friendly building/ship/whatever, and it needs to not get blown up.
 
 ## Ships
 Ships should have a few manageable stats, and some tweaks that can be applied to those stats. They can also have different loadouts which can be preselected before starting a level.
