@@ -20,6 +20,19 @@ This is a short list of some of the objectives I would expect players might have
 
 ## Ships
 Ships should have a few manageable stats, and some tweaks that can be applied to those stats. They can also have different loadouts which can be preselected before starting a level.
+
+Stats include:
+- Maximum speed at each power level (AEPL)
+- Rate of rotation in each axis AEPL
+- Rate of boost charge AEPL
+- Weapon system recharge AEPL
+- Weapon bonus modifier for overcharged system AEPL
+- Shield capacity - not based on power level!
+- Sheild recharge rate AEPL
+- Shield recharge time AEPL. The amount of time after getting hit before the shield starts regenerating
+- Number and layout of Shield zones
+- Weapon slots
+
 Some ships should be multi-player. One pilot flies the ship, and other players can be gunners, bomb experts(?), or copilots.
 
 ## Flight
@@ -34,10 +47,22 @@ Ships will have a top speed that they can reach at each level of engine power. T
 Like in Squadrons, I think it will be a nice gameplay element to have a boost, though unlike Squadrons I think the boost will constantly accumulate over time, but charge faster/last longer at higher power levels. I do _not_ intend to add any form of ship drifting like Squadrons, though.
 
 ### Weapons
-All weapons will consume weapon power when fired, and if the weapons systems don't have power then they won't fire/acquire target locks, etc. Having an overcharged weapons system will increase damage done, decrease lock acquisition rate, etc.
+All weapons will consume weapon power when fired, and if the weapons systems don't have power then they won't fire/acquire target locks, etc. Having an overcharged weapons system will increase damage done, decrease lock acquisition rate, etc. I do like the Elite approach of energy weapons affecting shields more than ballistics, but hull less, so I think that's another concept that I'm going to steal wholesale.
+
+#### Weapon types
+- Minigun: Ballistic, high RoF low damage per shot
+- Flak: Ballistic, medium RoF, damage falloff over distance to represent spread
+- Cannon: Ballistic, low Rof, high damage per shot
+- Laser: Energy beam, continuous damage when hit
+- Plasma: Energy bolt, slower but higher damage
+- Static: Energy cone, starts doing low damage, but increases with time-on-target
+- Tracking missiles: Seeking and fast, but have to lock-on first, and can be avoided
+- Dumbfire rockets: Swarm of medium-damage projectiles
+- Torpedoes: Lock-on, but too slow to be useful against fighter craft. For objectives only
+- Bombs: Dropped, unguided, for objectives only. Or an achievement for dropping one on an enemy 
 
 ### Shields
-Ships will have shields that get depleted upon taking damage before hull damage starts to accumulate. I do like the Elite approach of lasers affecting shields more than ballistics, but hull less, so I think that's another concept that I'm going to steal wholesale. I like the concept of angling shields, but I think this is a system that will differ on a per-ship basis. Smaller ships might not have any zoned shielding, medium sized ships have a basic fore/rear shield setup, and larger ships might even have 4 different angles to manage - something that is probably too much for a single player to handle, hence the necessity for a copilot. An overcharged shield system will provide more resistance, and recharge faster.
+Ships will have shields that get depleted upon taking damage before hull damage starts to accumulate.  I like the concept of angling shields, but I think this is a system that will differ on a per-ship basis. Smaller ships might not have any zoned shielding, medium sized ships have a basic fore/rear shield setup, and larger ships might even have 4 different angles to manage - something that is probably too much for a single player to handle, hence the necessity for a copilot. An overcharged shield system will provide more resistance, and recharge faster.
 
 ## References / Influences
 - Rogue Squadron: https://en.wikipedia.org/wiki/Star_Wars:_Rogue_Squadron
