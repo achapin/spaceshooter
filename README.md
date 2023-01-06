@@ -2,6 +2,12 @@
 
 The goal for this project is to make a cooperative-multiplayer focused space shooter game in a vein similar to the old Rogue Squadron or Star Fox games.
 
+## Setting
+The players are pilots that are part of a ragtag defense force (RDF) that is protecting the galaxy from the Legion of Evil. The RDF is always low on resources, so the pilots have to jump from planet to planet, helping where they can, but with little assistance from above.
+
+## Style
+Despite the nature of the RDF, the style of all their ships is Retro-Raygun inspired. Individual ships look like 1950s concept cars converted into space fighters. The players' ships in particular are hot-rodded out, which provides a juxtaposition to the sleek smooth designs of civilian (or less experienced military) craft.
+
 ## Wants list
 The game should be
 - Cooperative multiplayer up to 6 players
@@ -17,6 +23,12 @@ This is a short list of some of the objectives I would expect players might have
 - Survive: A bunch of enemies spawn, players have to defeat all of them (or at least some percentage of them) before moving on
 - Destroy: There's an enemy building/ship/whatever, and it needs to get blown up. Probably on a timer or something
 - Protect: There's a friendly building/ship/whatever, and it needs to not get blown up.
+- Get to point X: Useful for transitioning between set pieces
+
+### Level structure
+The level drops players in at the same relative location, and there is a chain of objectives and events that they need to complete in order to complete their mission. All players share the same state in the level progression chain, there are no secret player agendas or anything like that. Though maybe some players might be searching for an achievement or something like that. It might be fun to have secret hidden objectives, but with the open-ended concept I don't think that would be as interesting.
+
+I don't think there will be a concept of "bosses" like Star Fox, but there might be some souped-up enemies that take on that role.
 
 ## Ships
 Ships should have a few manageable stats, and some tweaks that can be applied to those stats. They can also have different loadouts which can be preselected before starting a level.
@@ -25,6 +37,9 @@ Stats include:
 - Maximum speed at each power level (AEPL)
 - Rate of rotation in each axis AEPL
 - Rate of boost charge AEPL
+- Boost capacity
+- Boost speed when being used
+- Boost usage per second while being used
 - Weapon system recharge AEPL
 - Weapon bonus modifier for overcharged system AEPL
 - Shield capacity - not based on power level!
