@@ -79,6 +79,9 @@ All weapons will consume weapon power when fired, and if the weapons systems don
 ### Shields
 Ships will have shields that get depleted upon taking damage before hull damage starts to accumulate.  I like the concept of angling shields, but I think this is a system that will differ on a per-ship basis. Smaller ships might not have any zoned shielding, medium sized ships have a basic fore/rear shield setup, and larger ships might even have 4 different angles to manage - something that is probably too much for a single player to handle, hence the necessity for a copilot. An overcharged shield system will provide more resistance, and recharge faster.
 
+## Tech Approach
+Since this a cooperative game instead of competitive, using dedicated servers probably isn't necessarily required. Client relay should be acceptable because the chance of a bad actor affecting gameplay is much lower. Whether using servers or relay, though, low latency is going to be necessary, since the players are going to be constantly in motion and can fly close to each other. All sorts of tricks will be needed to smooth over even normal operating latency. Keeping the number of networked entities to a minimum will help, so as to keep the traffic volume lower.
+
 ## References / Influences
 - Rogue Squadron: https://en.wikipedia.org/wiki/Star_Wars:_Rogue_Squadron
 - Star Wars: Starfighter: https://en.wikipedia.org/wiki/Star_Wars:_Starfighter
