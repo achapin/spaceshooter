@@ -24,6 +24,7 @@ This is a short list of some of the objectives I would expect players might have
 - Destroy: There's an enemy building/ship/whatever, and it needs to get blown up. Probably on a timer or something
 - Protect: There's a friendly building/ship/whatever, and it needs to not get blown up.
 - Get to point X: Useful for transitioning between set pieces
+- Pick up/Deliver: Certain ground-based NPCs can be picked up and carried. If the player gets them close to the ground, they can be dropped off.
 
 ### Level structure
 The level drops players in at the same relative location, and there is a chain of objectives and events that they need to complete in order to complete their mission. All players share the same state in the level progression chain, there are no secret player agendas or anything like that. Though maybe some players might be searching for an achievement or something like that. It might be fun to have secret hidden objectives, but with the open-ended concept I don't think that would be as interesting.
@@ -81,6 +82,13 @@ Ships will have shields that get depleted upon taking damage before hull damage 
 
 ## Tech Approach
 Since this a cooperative game instead of competitive, using dedicated servers probably isn't necessarily required. Client relay should be acceptable because the chance of a bad actor affecting gameplay is much lower. Whether using servers or relay, though, low latency is going to be necessary, since the players are going to be constantly in motion and can fly close to each other. All sorts of tricks will be needed to smooth over even normal operating latency. Keeping the number of networked entities to a minimum will help, so as to keep the traffic volume lower.
+
+Since the game state is likely to have more changing frame-by-frame than staying the same, it makes sense for each (flying) entity being synced over the wire to send its state out each frame, over an unreliable channel. Including a synced timestamp value allows the receivers to disregard packets if they have a newer state. Things to be sent include:
+- Position (Vec3)
+- Orientation (Vec3?)
+- Speed (float, assuming that ships can only move forward or backwards would save from having to send a full vec3)
+
+Other things like hp and damage state might be able to sent separately over a reliable channel, since that likely won't be changing every single tick.
 
 ## References / Influences
 - Rogue Squadron: https://en.wikipedia.org/wiki/Star_Wars:_Rogue_Squadron
