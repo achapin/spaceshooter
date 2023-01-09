@@ -3,10 +3,12 @@
 The goal for this project is to make a cooperative-multiplayer focused space shooter game in a vein similar to the old Rogue Squadron or Star Fox games.
 
 ## Setting
-The players are pilots that are part of a ragtag defense force (RDF) that is protecting the galaxy from the Legion of Evil. The RDF is always low on resources, so the pilots have to jump from planet to planet, helping where they can, but with little assistance from above.
+The players are pilots that are part of a Ragtag Defense Force (RDF) that is protecting the galaxy from the Legion of Evil. The RDF is always low on resources, so the pilots have to jump from planet to planet, helping where they can, but with little assistance from above.
 
 ## Style
-Despite the nature of the RDF, the style of all their ships is Retro-Raygun inspired. Individual ships look like 1950s concept cars converted into space fighters. The players' ships in particular are hot-rodded out, which provides a juxtaposition to the sleek smooth designs of civilian (or less experienced military) craft.
+Despite the nature of the RDF, the style of all their ships is Retro-Raygun inspired. Individual fighter ships look like 1950s concept cars as space fighters. The players' ships in particular are hot-rodded out, which provides a juxtaposition to the sleek smooth designs of civilian (or less experienced military) craft.
+
+The Legion of Evil has similarly retro-raygun styled craft as well, but more angular and with more spikes and ridges. Their craft are more airplane-inspired than those of the RDF.
 
 ## Wants list
 The game should be
@@ -14,6 +16,10 @@ The game should be
 - Co-op focused, with specific features that make the game more fun to play as a team
 - Level-based
 - Extendable! Ships and levels should be addable easily by players
+
+## Unique Selling Point / Elevator Pitch
+Take well loved space shooter gameplay, but give it a new dimension via a co-op experience that has players working together.
+"Imagine Star Fox, if you and your friends were all in the Millennium Falcon together!"
 
 ## Levels
 Levels should be self-contained units, with different objectives that the players need to achieve in order to succeed. They should follow a "free world" format. For the time being, despite being a "space" shooter, I forsee most of the levels taking place on the surface of planets, moons, etc, to give the players a sense of orientation via the ground.
@@ -79,6 +85,15 @@ All weapons will consume weapon power when fired, and if the weapons systems don
 
 ### Shields
 Ships will have shields that get depleted upon taking damage before hull damage starts to accumulate.  I like the concept of angling shields, but I think this is a system that will differ on a per-ship basis. Smaller ships might not have any zoned shielding, medium sized ships have a basic fore/rear shield setup, and larger ships might even have 4 different angles to manage - something that is probably too much for a single player to handle, hence the necessity for a copilot. An overcharged shield system will provide more resistance, and recharge faster.
+
+## Multiplayer Features
+Larger Ships:
+- Copilot: On larger ships, you are responsible for managing the power needs of the ship. You also direct the shields, to keep them angled for maximum effect. You can view a map of the battlefield, and set specific waypoints to make things easier for the pilot. You can also have a full 360 view of the ship to help the pilot.
+- Gunner: On ships which have gun turrets, one player can sit in the seat and take direct control over them. This frees the pilot up to focus on flying, and allows for better strafing runs and overall combat effectiveness.
+
+Wingmates: When smaller ships are joined in a wing, they get some benefits:
+- When firing at an enemy that has a another wingmate in their sights, you get a damage boost.
+- When flying in formation with your wingmates, you get boosted up to the highest speed of the ships in formation
 
 ## Tech Approach
 Since this a cooperative game instead of competitive, using dedicated servers probably isn't necessarily required. Client relay should be acceptable because the chance of a bad actor affecting gameplay is much lower. Whether using servers or relay, though, low latency is going to be necessary, since the players are going to be constantly in motion and can fly close to each other. All sorts of tricks will be needed to smooth over even normal operating latency. Keeping the number of networked entities to a minimum will help, so as to keep the traffic volume lower.
