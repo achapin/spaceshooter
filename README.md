@@ -40,6 +40,18 @@ I don't think there will be a concept of "bosses" like Star Fox, but there might
 ## Ships
 Ships should have a few manageable stats, and some tweaks that can be applied to those stats. They can also have different loadouts which can be preselected before starting a level.
 
+Some ships should be multi-player. One pilot flies the ship, and other players can be gunners, bomb experts(?), or copilots.
+
+### Ship Types
+- Workhorse, jack-of-all trades fighter. 1 seat
+- Speedy interceptor. 1 seat
+- Missile Boat. 1 Seat
+- Gunship with turret and bombs. 2 seats - pilot and gunner
+- Landing craft. 3 Seats - Pilot, copilot, tail gunner
+- War bomber. 4 Seats - Pilot, copilot, nose gunner, tail gunner
+
+### Ship Stats
+
 Stats include:
 - Maximum speed at each power level (AEPL)
 - Rate of rotation in each axis AEPL
@@ -54,8 +66,6 @@ Stats include:
 - Shield recharge time AEPL. The amount of time after getting hit before the shield starts regenerating
 - Number and layout of Shield zones
 - Weapon slots
-
-Some ships should be multi-player. One pilot flies the ship, and other players can be gunners, bomb experts(?), or copilots.
 
 ## Flight
 I'm really torn on whether to use a more flight-sim style flight setup where the player can control roll/pitch/yaw on their own, or if the more cinematic style used by most of my references is the way to go. The former will be easier to develop as it doesn't require complicated camera controls. However, for the style of gameplay I'm going for I think it might be too mentally taxing for the player and won't be as fun.
