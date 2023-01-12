@@ -61,3 +61,4 @@ crashlytics-build.properties
 spaceshooter/Library*
 spaceshooter/Logs*
 spaceshooter/Temp*
+spaceshooter/obj*

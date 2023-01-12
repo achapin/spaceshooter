@@ -53,6 +53,7 @@ Some ships should be multi-player. One pilot flies the ship, and other players c
 ### Ship Stats
 
 Stats include:
+- Hit points
 - Maximum speed at each power level (AEPL)
 - Rate of rotation in each axis AEPL
 - Rate of boost charge AEPL
@@ -62,7 +63,7 @@ Stats include:
 - Weapon system recharge AEPL
 - Weapon bonus modifier for overcharged system AEPL
 - Shield capacity - not based on power level!
-- Sheild recharge rate AEPL
+- Shield recharge rate AEPL
 - Shield recharge time AEPL. The amount of time after getting hit before the shield starts regenerating
 - Number and layout of Shield zones
 - Weapon slots
