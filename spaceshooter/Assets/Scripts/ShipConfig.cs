@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ShipConfig : ScriptableObject
 {
+    public float energyCapacity;
     public float maxHp;
     public AnimationCurve maximumSpeed;
     public AnimationCurve rotationSpeed;
