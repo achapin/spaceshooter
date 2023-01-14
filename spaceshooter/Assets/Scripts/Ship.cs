@@ -15,9 +15,5 @@ public class Ship : MonoBehaviour
         {
             throw new Exception("Ship cannot be created without a ship config");
         }
-
-        shipSystems.Add(new PoweredSystem());
-        shipSystems.Add(new PoweredSystem());
-        shipSystems.Add(new PoweredSystem());
     }
 }
