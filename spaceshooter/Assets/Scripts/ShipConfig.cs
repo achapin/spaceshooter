@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "ShipConfig", menuName = "Config/CreateShipConfig", order = 1)]
 public class ShipConfig : ScriptableObject
 {
     public float energyCapacity;
