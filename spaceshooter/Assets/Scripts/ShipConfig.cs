@@ -8,6 +8,8 @@ public class ShipConfig : ScriptableObject
     public AnimationCurve maximumSpeed;
     public AnimationCurve rotationSpeed;
     public AnimationCurve boostChargeRate;
+    public AnimationCurve frictionAtSpeed;
+    public AnimationCurve acceleration;
     public float boostSpeed;
     public float boostCapacity;
     public float boostBurnRate;

@@ -2,7 +2,7 @@ namespace ShipSystems
 {
     public interface IShipSystem
     {
-        void AssignConfig(ShipConfig config);
+        void Initialize(ShipConfig config, Ship ship);
     
         //Percentage is 0-1, representing 0-100%
         void AllocatePower(float percentage);

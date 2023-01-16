@@ -15,5 +15,12 @@ public class Ship : MonoBehaviour
         {
             throw new Exception("Ship cannot be created without a ship config");
         }
+        
+        shipSystems.Add(new EngineSystem());
+        
+        foreach (var shipSystem in shipSystems)
+        {
+            shipSystem.Initialize(config, this);
+        }
     }
 }
