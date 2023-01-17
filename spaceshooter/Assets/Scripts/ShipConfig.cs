@@ -11,6 +11,7 @@ public class ShipConfig : ScriptableObject
     public AnimationCurve frictionAtSpeed;
     public AnimationCurve acceleration;
     public float boostSpeed;
+    public float boostAcceleration;
     public float boostCapacity;
     public float boostBurnRate;
     public AnimationCurve weaponSystemRecharge;

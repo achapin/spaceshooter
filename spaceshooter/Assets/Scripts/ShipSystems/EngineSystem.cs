@@ -26,9 +26,10 @@ namespace ShipSystems
             _currentPower = percentage;
         }
 
-        public void Update(float deltaTime)
+        public void Update(float deltaTime, InputState inputState)
         {
-            _boostReserve = _config.boostChargeRate.Evaluate(_currentPower) * deltaTime;
+            _throttle = inputState.throttle;
+
             var maxSpeed = _config.maximumSpeed.Evaluate(_currentPower);
             var targetSpeed = _throttle * maxSpeed;
 
@@ -41,6 +42,22 @@ namespace ShipSystems
             {
                 _currentSpeed += _config.acceleration.Evaluate(_currentPower) * Time.deltaTime;
             }
+
+            if (inputState.isBoosting)
+            {
+                if (_boostReserve > 0)
+                {
+                    _currentSpeed = Mathf.Clamp(_currentSpeed + _config.boostAcceleration * deltaTime , 0f, _config.boostSpeed);
+                    _boostReserve -= _config.boostBurnRate * deltaTime;
+                }
+            }
+            else
+            {
+                _boostReserve += _config.boostChargeRate.Evaluate(_currentPower) * deltaTime;
+                _boostReserve = Mathf.Clamp(_boostReserve, 0f, _config.boostCapacity);
+            }
+            
+            //TODO: apply speed here? Or somewhere else?
         }
     }
 }

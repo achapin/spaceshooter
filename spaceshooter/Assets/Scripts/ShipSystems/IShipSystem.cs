@@ -7,6 +7,6 @@ namespace ShipSystems
         //Percentage is 0-1, representing 0-100%
         void AllocatePower(float percentage);
 
-        void Update(float deltaTime);
+        void Update(float deltaTime, InputState inputState);
     }
 }
