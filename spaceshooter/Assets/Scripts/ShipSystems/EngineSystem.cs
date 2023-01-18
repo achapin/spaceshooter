@@ -59,5 +59,10 @@ namespace ShipSystems
             
             //TODO: apply speed here? Or somewhere else?
         }
+
+        public float CurrentPower()
+        {
+            return _currentPower;
+        }
     }
 }

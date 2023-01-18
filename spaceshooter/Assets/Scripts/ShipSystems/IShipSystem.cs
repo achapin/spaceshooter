@@ -8,5 +8,7 @@ namespace ShipSystems
         void AllocatePower(float percentage);
 
         void Update(float deltaTime, InputState inputState);
+
+        float CurrentPower();
     }
 }
