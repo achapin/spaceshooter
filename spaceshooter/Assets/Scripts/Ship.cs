@@ -13,7 +13,7 @@ public class Ship : MonoBehaviour
     private EngineSystem _engineSystem;
     private WeaponSystem _weaponSystem;
     private ShieldSystem _shieldSystem;
-    
+
     private InputState _inputState;
 
     void Start()
@@ -43,17 +43,26 @@ public class Ship : MonoBehaviour
     private void Update()
     {
         if (_inputState == null) return;
-        if (_inputState.increaseEnginePower)
+        if (_inputState.balancePower)
         {
-            SetPowerToSystem(_engineSystem);
+            ReBalancePower();
         }
-        if (_inputState.increaseWeaponPower)
+        else
         {
-            SetPowerToSystem(_weaponSystem);
-        }
-        if (_inputState.increaseShieldPower)
-        {
-            SetPowerToSystem(_shieldSystem);
+            if (_inputState.increaseEnginePower)
+            {
+                SetPowerToSystem(_engineSystem);
+            }
+
+            if (_inputState.increaseWeaponPower)
+            {
+                SetPowerToSystem(_weaponSystem);
+            }
+
+            if (_inputState.increaseShieldPower)
+            {
+                SetPowerToSystem(_shieldSystem);
+            }
         }
 
         foreach (var shipSystem in shipSystems)
@@ -76,10 +85,11 @@ public class Ship : MonoBehaviour
                     systemsWithPowerToDraw++;
                 }
             }
-            
-            var newPower = Mathf.Clamp01(toIncrease.CurrentPower() + Time.deltaTime * powerAllocationSpeed * systemsWithPowerToDraw);
+
+            var newPower = Mathf.Clamp01(toIncrease.CurrentPower() +
+                                         Time.deltaTime * powerAllocationSpeed * systemsWithPowerToDraw);
             toIncrease.AllocatePower(newPower);
-            
+
             foreach (var shipSystem in shipSystems)
             {
                 if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
@@ -88,11 +98,19 @@ public class Ship : MonoBehaviour
                     shipSystem.AllocatePower(lowerPower);
                 }
             }
-            
         }
     }
-    
-    //TODO: Add a rebalance power function
+
+    private void ReBalancePower()
+    {
+        var avgPower = config.energyCapacity / shipSystems.Count;
+        foreach (var shipSystem in shipSystems)
+        {
+            var newPower =
+                Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, Time.deltaTime * powerAllocationSpeed);
+            shipSystem.AllocatePower(newPower);
+        }
+    }
 
     public void SetInputState(InputState newState)
     {
