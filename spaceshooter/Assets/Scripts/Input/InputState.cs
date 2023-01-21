@@ -1,12 +1,15 @@
-public class InputState
+namespace Input
 {
-    public bool increaseEnginePower;
-    public bool increaseWeaponPower;
-    public bool increaseShieldPower;
-    public bool balancePower;
+    public class InputState
+    {
+        public bool increaseEnginePower;
+        public bool increaseWeaponPower;
+        public bool increaseShieldPower;
+        public bool balancePower;
 
-    public bool isBoosting;
+        public bool isBoosting;
 
-    //0-1
-    public float throttle;
+        //0-1
+        public float throttle;
+    }
 }

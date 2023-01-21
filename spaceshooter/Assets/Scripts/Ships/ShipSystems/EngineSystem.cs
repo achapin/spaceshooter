@@ -1,6 +1,7 @@
+using Input;
 using UnityEngine;
 
-namespace ShipSystems
+namespace Ships.ShipSystems
 {
     public class EngineSystem : IShipSystem
     {

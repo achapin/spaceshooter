@@ -1,4 +1,6 @@
-namespace ShipSystems
+using Input;
+
+namespace Ships.ShipSystems
 {
     public class WeaponSystem : IShipSystem
     {
