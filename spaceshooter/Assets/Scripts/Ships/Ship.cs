@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Input;
 using Ships.ShipSystems;
 using UnityEngine;
@@ -9,11 +8,9 @@ namespace Ships
 {
     public class Ship : MonoBehaviour
     {
-        [SerializeField]
-        private float powerAllocationSpeed = 1f;
-        
-        [SerializeField]
-        private ShipConfig config;
+        [SerializeField] private float powerAllocationSpeed = 1f;
+
+        [SerializeField] private ShipConfig config;
 
         private List<IShipSystem> shipSystems;
         private EngineSystem _engineSystem;
@@ -101,7 +98,8 @@ namespace Ships
                 {
                     if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
                     {
-                        var lowerPower = Mathf.Clamp01(shipSystem.CurrentPower() + Time.deltaTime * -powerAllocationSpeed);
+                        var lowerPower =
+                            Mathf.Clamp01(shipSystem.CurrentPower() + Time.deltaTime * -powerAllocationSpeed);
                         shipSystem.AllocatePower(lowerPower);
                     }
                 }
@@ -111,11 +109,25 @@ namespace Ships
         private void ReBalancePower()
         {
             var avgPower = config.energyCapacity / shipSystems.Count;
+            var systemsRequiringBalance = 0;
             foreach (var shipSystem in shipSystems)
             {
-                var newPower =
-                    Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, Time.deltaTime * powerAllocationSpeed);
-                shipSystem.AllocatePower(newPower);
+                if (Mathf.Abs(shipSystem.CurrentPower() - avgPower) > Mathf.Epsilon)
+                {
+                    systemsRequiringBalance++;
+                }
+            }
+
+            var reBalanceSpeed = powerAllocationSpeed / systemsRequiringBalance;
+
+            foreach (var shipSystem in shipSystems)
+            {
+                if (Mathf.Abs(shipSystem.CurrentPower() - avgPower) > Mathf.Epsilon)
+                {
+                    var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower,
+                        reBalanceSpeed * Time.deltaTime);
+                    shipSystem.AllocatePower(newPower);
+                }
             }
         }
 
@@ -124,15 +136,11 @@ namespace Ships
             _inputState = newState;
         }
 
-        public void SetShipConfig(ShipConfig newConfig)
+        public float PowerAllocated
         {
-            config = newConfig;
-        }
-        
-        public float PowerAllocated {
             get
             {
-                float totalPower = 0f;
+                var totalPower = 0f;
                 foreach (var shipSystem in shipSystems)
                 {
                     totalPower += shipSystem.CurrentPower();
