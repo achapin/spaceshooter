@@ -12,7 +12,7 @@ namespace Ships.ShipTests
     public class ShipTests
     {
         private const string testShipPath = "Assets/Prefabs/Testing/TestShip.prefab";
-        private const float reasonableEpsilon = .001f;
+        private const float reasonableEpsilon = .0001f;
         private AsyncOperationHandle<GameObject> handle;
         
         [SetUp]

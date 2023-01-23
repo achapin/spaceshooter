@@ -110,11 +110,21 @@ namespace Ships
         {
             var avgPower = config.energyCapacity / shipSystems.Count;
             var systemsRequiringBalance = 0;
+            var toIncrease = 0;
+            var toDecrease = 0;
             foreach (var shipSystem in shipSystems)
             {
                 if (Mathf.Abs(shipSystem.CurrentPower() - avgPower) > Mathf.Epsilon)
                 {
                     systemsRequiringBalance++;
+                    if (shipSystem.CurrentPower() > avgPower)
+                    {
+                        toDecrease++;
+                    }
+                    else
+                    {
+                        toIncrease++;
+                    }
                 }
             }
 
@@ -124,8 +134,16 @@ namespace Ships
             {
                 if (Mathf.Abs(shipSystem.CurrentPower() - avgPower) > Mathf.Epsilon)
                 {
-                    var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower,
-                        reBalanceSpeed * Time.deltaTime);
+                    var rate = reBalanceSpeed * Time.deltaTime; 
+                    if (shipSystem.CurrentPower() > avgPower)
+                    {
+                        rate /= toDecrease;
+                    }
+                    else
+                    {
+                        rate /= toIncrease;
+                    }
+                    var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, rate);
                     shipSystem.AllocatePower(newPower);
                 }
             }
