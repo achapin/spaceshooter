@@ -57,8 +57,8 @@ namespace Ships.ShipSystems
                 _boostReserve += _config.boostChargeRate.Evaluate(_currentPower) * deltaTime;
                 _boostReserve = Mathf.Clamp(_boostReserve, 0f, _config.boostCapacity);
             }
-            
-            //TODO: apply speed here? Or somewhere else?
+
+            _ship.transform.Translate(Vector3.forward * _currentSpeed * deltaTime);
         }
 
         public float CurrentPower()

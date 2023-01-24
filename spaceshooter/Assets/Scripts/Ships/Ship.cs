@@ -132,20 +132,18 @@ namespace Ships
 
             foreach (var shipSystem in shipSystems)
             {
-                if (Mathf.Abs(shipSystem.CurrentPower() - avgPower) > Mathf.Epsilon)
+                if (!(Mathf.Abs(shipSystem.CurrentPower() - avgPower) > Mathf.Epsilon)) continue;
+                var rate = reBalanceSpeed * Time.deltaTime; 
+                if (shipSystem.CurrentPower() > avgPower)
                 {
-                    var rate = reBalanceSpeed * Time.deltaTime; 
-                    if (shipSystem.CurrentPower() > avgPower)
-                    {
-                        rate /= toDecrease;
-                    }
-                    else
-                    {
-                        rate /= toIncrease;
-                    }
-                    var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, rate);
-                    shipSystem.AllocatePower(newPower);
+                    rate /= toDecrease;
                 }
+                else
+                {
+                    rate /= toIncrease;
+                }
+                var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, rate);
+                shipSystem.AllocatePower(newPower);
             }
         }
 
