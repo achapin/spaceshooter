@@ -30,10 +30,12 @@ namespace Ships
             _weaponSystem = new WeaponSystem();
             _shieldSystem = new ShieldSystem();
 
-            shipSystems = new List<IShipSystem>();
-            shipSystems.Add(_engineSystem);
-            shipSystems.Add(_weaponSystem);
-            shipSystems.Add(_shieldSystem);
+            shipSystems = new List<IShipSystem>
+            {
+                _engineSystem,
+                _weaponSystem,
+                _shieldSystem
+            };
 
             var powerPerSystem = config.energyCapacity / shipSystems.Count;
 
@@ -79,29 +81,30 @@ namespace Ships
 
         private void SetPowerToSystem(IShipSystem toIncrease)
         {
-            if (toIncrease.CurrentPower() < 1)
+            if (toIncrease.CurrentPower() >= 1)
             {
-                var systemsWithPowerToDraw = 0;
-                foreach (var shipSystem in shipSystems)
+                return;
+            }
+            var systemsWithPowerToDraw = 0;
+            foreach (var shipSystem in shipSystems)
+            {
+                if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
                 {
-                    if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
-                    {
-                        systemsWithPowerToDraw++;
-                    }
+                    systemsWithPowerToDraw++;
                 }
+            }
 
-                var newPower = Mathf.Clamp01(toIncrease.CurrentPower() +
-                                             Time.deltaTime * powerAllocationSpeed * systemsWithPowerToDraw);
-                toIncrease.AllocatePower(newPower);
+            var newPower = Mathf.Clamp01(toIncrease.CurrentPower() +
+                                         Time.deltaTime * powerAllocationSpeed * systemsWithPowerToDraw);
+            toIncrease.AllocatePower(newPower);
 
-                foreach (var shipSystem in shipSystems)
+            foreach (var shipSystem in shipSystems)
+            {
+                if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
                 {
-                    if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
-                    {
-                        var lowerPower =
-                            Mathf.Clamp01(shipSystem.CurrentPower() + Time.deltaTime * -powerAllocationSpeed);
-                        shipSystem.AllocatePower(lowerPower);
-                    }
+                    var lowerPower =
+                        Mathf.Clamp01(shipSystem.CurrentPower() + Time.deltaTime * -powerAllocationSpeed);
+                    shipSystem.AllocatePower(lowerPower);
                 }
             }
         }

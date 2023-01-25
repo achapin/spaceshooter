@@ -180,9 +180,101 @@ namespace Ships.ShipTests
                 yield return null;
                 ship.SetInputState(throttleState);
                 position = ship.gameObject.transform.position;
-                Assert.Greater(Vector3.Distance(oldPosition, position), reasonableEpsilon);
+                Assert.Greater(Vector3.Distance(oldPosition, position) / Time.deltaTime, reasonableEpsilon);
                 oldPosition = position;
             }
+        }
+
+        [UnityTest]
+        public IEnumerator IncreasingEnginePowerIncreasesSpeed()
+        {
+            yield return handle;
+            var testShip = handle.Result;
+            var ship = testShip.GetComponent<Ship>();
+            
+            var throttleState = new InputState
+            {
+                throttle = 1f
+            };
+            
+            var engineState = new InputState
+            {
+                increaseEnginePower = true,
+                throttle = 1f
+            };
+            
+            //Get up to full throttle
+            for (var loop = 0; loop < 1000; loop++)
+            {
+                yield return null;
+                ship.SetInputState(throttleState);
+            }
+            var oldPosition = ship.gameObject.transform.position;
+            ship.SetInputState(throttleState);
+            yield return null;
+            var position = ship.gameObject.transform.position;
+            var oldSpeed = Vector3.Distance(position, oldPosition) / Time.deltaTime;
+
+            //Get up to full throttle with full energy
+            for (var loop = 0; loop < 1000; loop++)
+            {
+                yield return null;
+                ship.SetInputState(engineState);
+            }
+            
+            oldPosition = ship.gameObject.transform.position;
+            ship.SetInputState(engineState);
+            yield return null;
+            position = ship.gameObject.transform.position;
+            var newSpeed = Vector3.Distance(position, oldPosition) / Time.deltaTime;
+            
+            Assert.Greater(newSpeed, oldSpeed);
+        }
+        
+        [UnityTest]
+        public IEnumerator DecreasingEnginePowerDecreasesSpeed()
+        {
+            yield return handle;
+            var testShip = handle.Result;
+            var ship = testShip.GetComponent<Ship>();
+            
+            var throttleState = new InputState
+            {
+                throttle = 1f
+            };
+            
+            var weaponState = new InputState
+            {
+                increaseWeaponPower = true,
+                throttle = 1f
+            };
+            
+            //Get up to full throttle
+            for (var loop = 0; loop < 1000; loop++)
+            {
+                yield return null;
+                ship.SetInputState(throttleState);
+            }
+            var oldPosition = ship.gameObject.transform.position;
+            ship.SetInputState(throttleState);
+            yield return null;
+            var position = ship.gameObject.transform.position;
+            var oldSpeed = Vector3.Distance(position, oldPosition) / Time.deltaTime;
+
+            //Get up to full throttle with full energy
+            for (var loop = 0; loop < 1000; loop++)
+            {
+                yield return null;
+                ship.SetInputState(weaponState);
+            }
+            
+            oldPosition = ship.gameObject.transform.position;
+            ship.SetInputState(weaponState);
+            yield return null;
+            position = ship.gameObject.transform.position;
+            var newSpeed = Vector3.Distance(position, oldPosition) / Time.deltaTime;
+            
+            Assert.Less(newSpeed, oldSpeed);
         }
     }
 }
