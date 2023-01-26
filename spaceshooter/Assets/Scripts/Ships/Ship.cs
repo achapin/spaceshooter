@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Input;
 using Ships.ShipSystems;
 using UnityEngine;
 
+[assembly: InternalsVisibleTo("ShipTests")]
 namespace Ships
 {
     public class Ship : MonoBehaviour
     {
         [SerializeField] private float powerAllocationSpeed = 1f;
 
-        [SerializeField] private ShipConfig config;
+        [SerializeField] internal ShipConfig config;
 
         private List<IShipSystem> shipSystems;
-        private EngineSystem _engineSystem;
-        private WeaponSystem _weaponSystem;
-        private ShieldSystem _shieldSystem;
+        internal EngineSystem _engineSystem;
+        internal WeaponSystem _weaponSystem;
+        internal ShieldSystem _shieldSystem;
 
         private InputState _inputState;
 

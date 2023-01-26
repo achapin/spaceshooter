@@ -1,5 +1,9 @@
+using System;
+using System.Runtime.CompilerServices;
 using Input;
 using UnityEngine;
+
+[assembly: InternalsVisibleTo("ShipTests")]
 
 namespace Ships.ShipSystems
 {
@@ -14,7 +18,7 @@ namespace Ships.ShipSystems
 
         private float _currentSpeed;
 
-        private float _boostReserve;
+        internal float _boostReserve;
 
         public void Initialize(ShipConfig config, Ship ship)
         {
@@ -41,16 +45,19 @@ namespace Ships.ShipSystems
 
             if (_currentSpeed < targetSpeed)
             {
-                _currentSpeed += _config.acceleration.Evaluate(_currentPower) * Time.deltaTime;
+                _currentSpeed += Mathf.MoveTowards(_currentSpeed, targetSpeed,
+                    _config.acceleration.Evaluate(_currentPower) * Time.deltaTime);
             }
 
             if (inputState.isBoosting)
             {
                 if (_boostReserve > 0)
                 {
-                    _currentSpeed = Mathf.Clamp(_currentSpeed + _config.boostAcceleration * deltaTime , 0f, _config.boostSpeed);
-                    _boostReserve -= _config.boostBurnRate * deltaTime;
+                    _currentSpeed = Mathf.Clamp(_currentSpeed + _config.boostAcceleration * deltaTime, 0f,
+                        _config.boostSpeed);
                 }
+
+                _boostReserve = Mathf.MoveTowards(_boostReserve, 0f, _config.boostBurnRate * deltaTime);
             }
             else
             {
