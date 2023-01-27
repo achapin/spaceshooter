@@ -64,6 +64,9 @@ namespace Ships.ShipSystems
                 _boostReserve += _config.boostChargeRate.Evaluate(_currentPower) * deltaTime;
                 _boostReserve = Mathf.Clamp(_boostReserve, 0f, _config.boostCapacity);
             }
+            
+            _ship.transform.Rotate(_ship.transform.up * inputState.joystick.x * _config.rotationSpeed.Evaluate(_currentPower));
+            _ship.transform.Rotate(_ship.transform.right * inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower));
 
             _ship.transform.Translate(Vector3.forward * _currentSpeed * deltaTime);
         }

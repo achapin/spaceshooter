@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Input
 {
     public class InputState
@@ -11,5 +13,8 @@ namespace Input
 
         //0-1
         public float throttle;
+        
+        //0-1/0-1
+        public Vector2 joystick;
     }
 }
