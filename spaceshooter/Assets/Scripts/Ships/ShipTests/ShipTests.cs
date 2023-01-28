@@ -354,5 +354,48 @@ namespace Ships.ShipTests
             Assert.LessOrEqual(boostLevel, 0f);
             Assert.True(hasReachedBoostSpeed);
         }
+        
+        [UnityTest]
+        public IEnumerator ChangingJoystickRotatesShip()
+        {
+            yield return handle;
+            var testShip = handle.Result;
+            var ship = testShip.GetComponent<Ship>();
+            var transform = testShip.transform;
+            
+            var throttleState = new InputState
+            {
+                throttle = 1f
+            };
+
+            var rotateState = new InputState
+            {
+                throttle = 1f,
+                joystick = new Vector2(1f, 0f)
+            };
+            
+            ship.SetInputState(throttleState);
+            Vector3 oldEulers = transform.eulerAngles;
+            
+            for (var loop = 0; loop < 100; loop++)
+            {
+                yield return null;
+                ship.SetInputState(throttleState);
+                var eulers = transform.eulerAngles;
+                Assert.AreEqual(oldEulers, eulers);
+                oldEulers = eulers;
+            }
+            
+            ship.SetInputState(rotateState);
+
+            for (var loop = 0; loop < 100; loop++)
+            {
+                yield return null;
+                ship.SetInputState(rotateState);
+                var eulers = transform.eulerAngles;
+                Assert.AreNotEqual(oldEulers, eulers);
+                oldEulers = eulers;
+            }
+        }
     }
 }
