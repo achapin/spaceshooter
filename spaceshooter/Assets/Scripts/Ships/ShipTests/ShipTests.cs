@@ -375,7 +375,7 @@ namespace Ships.ShipTests
             };
             
             ship.SetInputState(throttleState);
-            Vector3 oldEulers = transform.eulerAngles;
+            var oldEulers = transform.eulerAngles;
             
             for (var loop = 0; loop < 100; loop++)
             {
