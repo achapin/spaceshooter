@@ -12,17 +12,13 @@ namespace Input
         void Start()
         {
             var playerInput = gameObject.GetComponent<PlayerInput>();
-            playerInput.onActionTriggered += PlayerInputOnonActionTriggered;
+            playerInput.onActionTriggered += PlayerInputOnActionTriggered;
         }
 
-        private void PlayerInputOnonActionTriggered(InputAction.CallbackContext obj)
+        private void PlayerInputOnActionTriggered(InputAction.CallbackContext obj)
         {
-            throw new NotImplementedException();
-        }
-
-        private void LateUpdate()
-        {
-            throw new NotImplementedException();
+            Debug.Log($"{obj.action} {obj.action.name} {obj.phase}");
+            //TODO: How to map the inputactions to the InputState...
         }
 
         InputState GetState()
