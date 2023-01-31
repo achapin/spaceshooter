@@ -9,6 +9,8 @@ namespace Input
     {
         private InputState _inputState = new InputState();
 
+        private float _throttleDelta = 0f;
+
         void Start()
         {
             var playerInput = gameObject.GetComponent<PlayerInput>();
@@ -18,10 +20,37 @@ namespace Input
         private void PlayerInputOnActionTriggered(InputAction.CallbackContext obj)
         {
             Debug.Log($"{obj.action} {obj.action.name} {obj.phase}");
-            //TODO: How to map the inputactions to the InputState...
+            switch (obj.action.name)
+            {
+                case "Joystick":
+                    if (obj.phase == InputActionPhase.Performed)
+                    {
+                        _inputState.joystick = obj.ReadValue<Vector2>();
+                    } else if (obj.phase == InputActionPhase.Canceled)
+                    {
+                        _inputState.joystick = Vector2.zero;
+                    }
+                    Debug.Log($"New joystick {_inputState.joystick}");
+                    break;
+                case "Throttle":
+                    if (obj.phase == InputActionPhase.Performed)
+                    {
+                        _throttleDelta = obj.ReadValue<float>();
+                    } else if (obj.phase == InputActionPhase.Canceled)
+                    {
+                        _throttleDelta = 0f;
+                    }
+                    break;
+            }
         }
 
-        InputState GetState()
+        void Update()
+        {
+            _inputState.throttle = Mathf.Clamp01(_inputState.throttle + _throttleDelta * Time.deltaTime);
+            Debug.Log($"Throttle {_inputState.throttle}");
+        }
+
+        public InputState GetState()
         {
             return _inputState;
         }

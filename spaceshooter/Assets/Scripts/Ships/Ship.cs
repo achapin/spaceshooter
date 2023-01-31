@@ -20,6 +20,7 @@ namespace Ships
         internal ShieldSystem _shieldSystem;
 
         private InputState _inputState;
+        private InputListener _listener;
 
         void Start()
         {
@@ -39,6 +40,8 @@ namespace Ships
                 _shieldSystem
             };
 
+            _listener = GetComponent<InputListener>();
+
             var powerPerSystem = config.energyCapacity / shipSystems.Count;
 
             foreach (var shipSystem in shipSystems)
@@ -50,6 +53,10 @@ namespace Ships
 
         private void Update()
         {
+            if (_listener != null)
+            {
+                _inputState = _listener.GetState();
+            }
             if (_inputState == null) return;
             if (_inputState.balancePower)
             {
