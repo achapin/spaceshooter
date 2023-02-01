@@ -19,27 +19,30 @@ namespace Input
 
         private void PlayerInputOnActionTriggered(InputAction.CallbackContext obj)
         {
-            Debug.Log($"{obj.action} {obj.action.name} {obj.phase}");
+            //Debug.Log($"{obj.action} {obj.action.name} {obj.phase}");
             switch (obj.action.name)
             {
                 case "Joystick":
                     if (obj.phase == InputActionPhase.Performed)
                     {
                         _inputState.joystick = obj.ReadValue<Vector2>();
-                    } else if (obj.phase == InputActionPhase.Canceled)
+                    }
+                    else if (obj.phase == InputActionPhase.Canceled)
                     {
                         _inputState.joystick = Vector2.zero;
                     }
-                    Debug.Log($"New joystick {_inputState.joystick}");
+
                     break;
                 case "Throttle":
                     if (obj.phase == InputActionPhase.Performed)
                     {
                         _throttleDelta = obj.ReadValue<float>();
-                    } else if (obj.phase == InputActionPhase.Canceled)
+                    }
+                    else if (obj.phase == InputActionPhase.Canceled)
                     {
                         _throttleDelta = 0f;
                     }
+
                     break;
             }
         }
@@ -47,7 +50,6 @@ namespace Input
         void Update()
         {
             _inputState.throttle = Mathf.Clamp01(_inputState.throttle + _throttleDelta * Time.deltaTime);
-            Debug.Log($"Throttle {_inputState.throttle}");
         }
 
         public InputState GetState()
