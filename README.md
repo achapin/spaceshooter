@@ -71,6 +71,17 @@ Stats include:
 ## Flight
 I'm really torn on whether to use a more flight-sim style flight setup where the player can control roll/pitch/yaw on their own, or if the more cinematic style used by most of my references is the way to go. The former will be easier to develop as it doesn't require complicated camera controls. However, for the style of gameplay I'm going for I think it might be too mentally taxing for the player and won't be as fun.
 
+### Flight sim
+- Requires roll, pitch, and yaw controls, hard on a gamepad
+- No clamps
+- Easy to code
+
+### Cinematic Follow
+- Oriented to the ground
+- Handled by just one joystick
+- vertical movement is clamped so the ship can't flip around
+Almost like the joystick is moving the reticle, and the ship follows.
+
 ### Flight Systems
 I do want the player to have to manage some basic flight systems. I like the Weapons/Engine/Shields setup used by Squadrons and Elite Dangerous, so I think I'm going to steal that approach wholesale. Players will have a set amound of energy "pips" that the ship has access to, and they can dynamically shift between a balanced power setup to favoring one system over the others in order to quickly charge it or gain a bonus.
 

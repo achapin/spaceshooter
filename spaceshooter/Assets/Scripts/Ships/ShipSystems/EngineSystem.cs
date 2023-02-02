@@ -13,10 +13,13 @@ namespace Ships.ShipSystems
         private Ship _ship;
         private float _currentPower;
 
+        private const float maxAngle = 75f; 
+
         //0-1
         private float _throttle;
 
         private float _currentSpeed;
+        private float _groundAngle = 0f;
 
         internal float _boostReserve;
 
@@ -65,8 +68,11 @@ namespace Ships.ShipSystems
                 _boostReserve = Mathf.Clamp(_boostReserve, 0f, _config.boostCapacity);
             }
             
-            _ship.transform.Rotate(_ship.transform.up, inputState.joystick.x * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
-            _ship.transform.Rotate(_ship.transform.right, inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
+            _ship.transform.Rotate(Vector3.up, inputState.joystick.x * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
+            _groundAngle += inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime;
+            _groundAngle = Mathf.Clamp(_groundAngle, -maxAngle, maxAngle);
+            _ship.transform.localRotation = Quaternion.AngleAxis(_groundAngle, Vector3.right); 
+            //_ship.transform.Rotate(_ship.transform.right, inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
 
             _ship.transform.Translate(Vector3.forward * _currentSpeed * deltaTime);
         }
