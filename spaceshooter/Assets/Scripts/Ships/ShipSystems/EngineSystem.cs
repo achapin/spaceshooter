@@ -13,7 +13,8 @@ namespace Ships.ShipSystems
         private Ship _ship;
         private float _currentPower;
 
-        private const float maxAngle = 75f; 
+        private const float maxAngle = 75f;
+        private const float restitution = 3f;
 
         //0-1
         private float _throttle;
@@ -69,10 +70,22 @@ namespace Ships.ShipSystems
             }
             
             _ship.transform.Rotate(Vector3.up, inputState.joystick.x * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
-            _groundAngle += inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime;
-            _groundAngle = Mathf.Clamp(_groundAngle, -maxAngle, maxAngle);
-            _ship.transform.localRotation = Quaternion.AngleAxis(_groundAngle, Vector3.right); 
-            //_ship.transform.Rotate(_ship.transform.right, inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
+            var groundAngleDelta = inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime;
+            if (groundAngleDelta + _groundAngle > maxAngle)
+            {
+                groundAngleDelta = maxAngle - _groundAngle;
+            } else if (groundAngleDelta + _groundAngle < -maxAngle)
+            {
+                groundAngleDelta = -maxAngle - _groundAngle;
+            }
+
+            if (Mathf.Abs(inputState.joystick.y) < Mathf.Epsilon)
+            {
+                groundAngleDelta = _groundAngle * -deltaTime * restitution;
+            }
+            _groundAngle += groundAngleDelta;
+            Quaternion targetRotation = Quaternion.AngleAxis(groundAngleDelta, _ship.transform.right);
+            _ship.transform.rotation = targetRotation * _ship.transform.rotation;
 
             _ship.transform.Translate(Vector3.forward * _currentSpeed * deltaTime);
         }
