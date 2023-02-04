@@ -8,7 +8,8 @@ namespace Ships
         public float energyCapacity;
         public float maxHp;
         public AnimationCurve maximumSpeed;
-        public AnimationCurve rotationSpeed;
+        public AnimationCurve pitchSpeed;
+        public AnimationCurve yawSpeed;
         public AnimationCurve boostChargeRate;
         public AnimationCurve frictionAtSpeed;
         public AnimationCurve acceleration;

@@ -69,8 +69,8 @@ namespace Ships.ShipSystems
                 _boostReserve = Mathf.Clamp(_boostReserve, 0f, _config.boostCapacity);
             }
             
-            _ship.transform.Rotate(Vector3.up, inputState.joystick.x * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
-            var groundAngleDelta = inputState.joystick.y * _config.rotationSpeed.Evaluate(_currentPower) * deltaTime;
+            _ship.transform.Rotate(Vector3.up, inputState.joystick.x * _config.yawSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
+            var groundAngleDelta = inputState.joystick.y * _config.pitchSpeed.Evaluate(_currentPower) * deltaTime;
             if (groundAngleDelta + _groundAngle > maxAngle)
             {
                 groundAngleDelta = maxAngle - _groundAngle;

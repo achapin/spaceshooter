@@ -44,6 +44,17 @@ namespace Input
                     }
 
                     break;
+                case "Boost":
+                    if (obj.performed)
+                    {
+                        _inputState.isBoosting = true;
+                    }
+                    else if (obj.canceled)
+                    {
+                        _inputState.isBoosting = false;
+                    }
+
+                    break;
             }
         }
 
