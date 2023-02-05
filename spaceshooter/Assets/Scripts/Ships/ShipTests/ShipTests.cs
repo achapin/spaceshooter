@@ -74,24 +74,45 @@ namespace Ships.ShipTests
                 increaseWeaponPower = true
             };
 
+            var lastPower = ship._engineSystem.CurrentPower();
+
             for (var loop = 0; loop < 10; loop++)
             {
                 ship.SetInputState(engineState);
                 yield return null;
+                if (lastPower < 1f)
+                {
+                    Assert.Greater(ship._engineSystem.CurrentPower(), lastPower);
+                    lastPower = ship._engineSystem.CurrentPower();
+                }
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
             }
+            
+            lastPower = ship._shieldSystem.CurrentPower();
 
             for (var loop = 0; loop < 10; loop++)
             {
                 ship.SetInputState(shieldState);
                 yield return null;
+                if (lastPower < 1f)
+                {
+                    Assert.Greater(ship._shieldSystem.CurrentPower(), lastPower);
+                    lastPower = ship._shieldSystem.CurrentPower();
+                }
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
             }
+            
+            lastPower = ship._weaponSystem.CurrentPower();
 
             for (var loop = 0; loop < 10; loop++)
             {
                 ship.SetInputState(weaponState);
                 yield return null;
+                if (lastPower < 1f)
+                {
+                    Assert.Greater(ship._weaponSystem.CurrentPower(), lastPower);
+                    lastPower = ship._weaponSystem.CurrentPower();
+                }
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
             }
         }

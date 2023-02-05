@@ -55,6 +55,46 @@ namespace Input
                     }
 
                     break;
+                case "PowerBalance":
+                    if (obj.performed)
+                    {
+                        _inputState.balancePower = true;
+                    }
+                    else
+                    {
+                        _inputState.balancePower = false;
+                    }
+                    break;
+                case "PowerIncreaseEngineSystem":
+                    if (obj.performed)
+                    {
+                        _inputState.increaseEnginePower = true;
+                    }
+                    else
+                    {
+                        _inputState.increaseEnginePower = false;
+                    }
+                    break;
+                case "PowerIncreaseShieldSystem":
+                    if (obj.performed)
+                    {
+                        _inputState.increaseShieldPower = true;
+                    }
+                    else
+                    {
+                        _inputState.increaseShieldPower = false;
+                    }
+                    break;
+                case "PowerIncreaseWeaponSystem":
+                    if (obj.performed)
+                    {
+                        _inputState.increaseWeaponPower = true;
+                    }
+                    else
+                    {
+                        _inputState.increaseWeaponPower = false;
+                    }
+                    break;
             }
         }
 

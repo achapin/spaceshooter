@@ -102,11 +102,7 @@ namespace Ships
                     systemsWithPowerToDraw++;
                 }
             }
-
-            var newPower = Mathf.Clamp01(toIncrease.CurrentPower() +
-                                         Time.deltaTime * powerAllocationSpeed * systemsWithPowerToDraw);
-            toIncrease.AllocatePower(newPower);
-
+            
             foreach (var shipSystem in shipSystems)
             {
                 if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
@@ -116,6 +112,12 @@ namespace Ships
                     shipSystem.AllocatePower(lowerPower);
                 }
             }
+            
+            var newPower = Mathf.Clamp01(toIncrease.CurrentPower() +
+                                         Time.deltaTime * powerAllocationSpeed * systemsWithPowerToDraw);
+            toIncrease.AllocatePower(newPower);
+            
+            LogPower();
         }
 
         private void ReBalancePower()
@@ -157,6 +159,13 @@ namespace Ships
                 var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, rate);
                 shipSystem.AllocatePower(newPower);
             }
+            
+            LogPower();
+        }
+
+        private void LogPower()
+        {
+            Debug.Log($"Engine: {_engineSystem.CurrentPower()} Shields: {_shieldSystem.CurrentPower()} Weapons: {_weaponSystem.CurrentPower()}");
         }
 
         public void SetInputState(InputState newState)
