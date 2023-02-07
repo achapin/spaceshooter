@@ -186,5 +186,10 @@ namespace Ships
                 return totalPower;
             }
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("Bonk");
+        }
     }
 }
