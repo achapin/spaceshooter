@@ -127,6 +127,9 @@ Since the game state is likely to have more changing frame-by-frame than staying
 
 Other things like hp and damage state might be able to sent separately over a reliable channel, since that likely won't be changing every single tick.
 
+### Weapons
+Some weapons need very little information: just the state of the trigger, and their own internal mechanisms, like a full-auto gatling gun. Others need more information about the source ship. Its orientation, position in the world, etc. The ship doesn't need to know anything about the weapons, though. It just needs to provide them with power. 
+
 ## References / Influences
 - Rogue Squadron: https://en.wikipedia.org/wiki/Star_Wars:_Rogue_Squadron
 - Star Wars: Starfighter: https://en.wikipedia.org/wiki/Star_Wars:_Starfighter
