@@ -10,13 +10,11 @@ namespace Ships.ShipSystems
     public class EngineSystem : IShipSystem
     {
         private ShipConfig _config;
-        private Ship _ship;
         private Transform _transform;
         private Rigidbody _rigidbody;
         private float _currentPower;
 
         private const float maxAngle = 75f;
-        private const float restitution = 3f;
 
         //0-1
         private float _throttle;
@@ -28,9 +26,12 @@ namespace Ships.ShipSystems
         public void Initialize(ShipConfig config, Ship ship)
         {
             _config = config;
-            _ship = ship;
             _transform = ship.GetComponent<Transform>();
             _rigidbody = ship.GetComponent<Rigidbody>();
+
+            //Should be set by the prefab, but just in case
+            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY |
+                                     RigidbodyConstraints.FreezeRotationZ;
         }
 
         public void AllocatePower(float percentage)
@@ -73,23 +74,23 @@ namespace Ships.ShipSystems
             }
             
             _transform.Rotate(Vector3.up, inputState.joystick.x * _config.yawSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
-            var groundAngleDelta = inputState.joystick.y * _config.pitchSpeed.Evaluate(_currentPower) * deltaTime;
-            if (Mathf.DeltaAngle(_transform.localEulerAngles.x, groundAngleDelta + _transform.localEulerAngles.x) > maxAngle)
-            {
-                groundAngleDelta = maxAngle - _transform.localEulerAngles.x;
-            } 
-            else if (groundAngleDelta + _transform.localEulerAngles.x < -maxAngle)
-            {
-                groundAngleDelta = -maxAngle - _transform.localEulerAngles.x;
-            }
 
-            if (Mathf.Abs(inputState.joystick.y) < Mathf.Epsilon)
+            var rotateVector = Vector3.Cross(Vector3.up, _transform.forward);
+            if(Mathf.Abs(inputState.joystick.y) > Mathf.Epsilon)
             {
-                groundAngleDelta = Mathf.MoveTowardsAngle(_transform.localEulerAngles.x, 0f, -deltaTime * restitution);
+                _transform.Rotate(rotateVector,
+                    inputState.joystick.y * _config.pitchSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
             }
-
-            Quaternion targetRotation = Quaternion.AngleAxis(groundAngleDelta, _transform.right);
-            _transform.rotation = targetRotation * _transform.rotation;
+            else
+            {
+                var straightforwardVector = Vector3.Cross(rotateVector, Vector3.up);
+                var angleToForward = Vector3.Angle(straightforwardVector, _transform.forward);
+                var restitutionAngle = Mathf.Sign(Vector3.Dot(_transform.forward, Vector3.up)) *
+                                  _config.pitchSpeed.Evaluate(_currentPower) * deltaTime;
+                var useRestitution = Mathf.Abs(restitutionAngle) < angleToForward;
+                _transform.Rotate(rotateVector,
+                    useRestitution ? restitutionAngle : angleToForward, Space.World);
+            }
 
             _rigidbody.velocity = _transform.forward * _currentSpeed;
         }
