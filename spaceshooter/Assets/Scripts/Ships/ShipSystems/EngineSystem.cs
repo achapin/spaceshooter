@@ -78,8 +78,14 @@ namespace Ships.ShipSystems
             var rotateVector = Vector3.Cross(Vector3.up, _transform.forward);
             if(Mathf.Abs(inputState.joystick.y) > Mathf.Epsilon)
             {
-                _transform.Rotate(rotateVector,
-                    inputState.joystick.y * _config.pitchSpeed.Evaluate(_currentPower) * deltaTime, Space.World);
+                var angleToRotate = inputState.joystick.y * _config.pitchSpeed.Evaluate(_currentPower) * deltaTime;
+                
+                var angleToCheck = Vector3.Angle(_transform.forward, inputState.joystick.y < 0 ? Vector3.up : Vector3.down);
+                if (angleToCheck - Mathf.Abs(angleToRotate) < 90f - maxAngle)
+                {
+                    angleToRotate = (90f - maxAngle - angleToCheck) * -Mathf.Sign(inputState.joystick.y);
+                }
+                _transform.Rotate(rotateVector, angleToRotate, Space.World);
             }
             else
             {
