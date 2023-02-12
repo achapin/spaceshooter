@@ -15,6 +15,7 @@ namespace Ships.ShipSystems
         private float _currentPower;
 
         private const float maxAngle = 75f;
+        private const float collisionDelay = .5f;
 
         //0-1
         private float _throttle;
@@ -22,6 +23,9 @@ namespace Ships.ShipSystems
         private float _currentSpeed;
 
         internal float _boostReserve;
+
+        private Vector3 _collisionVector;
+        private float _collisionTime;
 
         public void Initialize(ShipConfig config, Ship ship)
         {
@@ -41,6 +45,15 @@ namespace Ships.ShipSystems
 
         public void Update(float deltaTime, InputState inputState)
         {
+            if (_collisionTime > 0f)
+            {
+                Debug.Log($"Processing bonk {_currentSpeed}");
+                var transformVector = Vector3.Lerp(_collisionVector, Vector3.zero, _collisionTime / collisionDelay);
+                _transform.Translate(transformVector * Time.deltaTime);
+                _collisionTime -= deltaTime;
+                return;
+            }
+
             _throttle = inputState.throttle;
 
             var maxSpeed = _config.maximumSpeed.Evaluate(_currentPower);
@@ -99,6 +112,11 @@ namespace Ships.ShipSystems
             }
 
             _rigidbody.velocity = _transform.forward * _currentSpeed;
+        }
+
+        public void ResolveCollision(Vector3 collisionVector)
+        {
+            _currentSpeed = 0f;
         }
 
         public float CurrentPower()

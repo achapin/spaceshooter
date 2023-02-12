@@ -189,7 +189,7 @@ namespace Ships
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("Bonk");
+            _engineSystem.ResolveCollision(collision.impulse);
         }
     }
 }
