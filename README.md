@@ -82,6 +82,13 @@ I'm really torn on whether to use a more flight-sim style flight setup where the
 - vertical movement is clamped so the ship can't flip around
 Almost like the joystick is moving the reticle, and the ship follows.
 
+### Collisions
+Running into things with the player ship will damage them. Depending on the type of collision, different effects may happen:
+- Clipped collision: Secondary part of the ship hits something. Small amount of damage, temporarily disable that collider for a brief period. No re-orientation
+- Glancing collision: Primary part of the ship hits something, but the path forward is still relatively clear (determined by what??). Moderate damage, possible re-orientation.
+- Head-on collision: Primary part of the ship hits something, but there is no way forward. The ship is totally destroyed.
+Note: Speed should play a part in this. Even a head-on collision at 1 m/s shouldn't be a complete game over... Will need to think about this some more. 
+
 ### Flight Systems
 I do want the player to have to manage some basic flight systems. I like the Weapons/Engine/Shields setup used by Squadrons and Elite Dangerous, so I think I'm going to steal that approach wholesale. Players will have a set amound of energy "pips" that the ship has access to, and they can dynamically shift between a balanced power setup to favoring one system over the others in order to quickly charge it or gain a bonus.
 

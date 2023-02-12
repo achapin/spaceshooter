@@ -160,7 +160,7 @@ namespace Ships
                 shipSystem.AllocatePower(newPower);
             }
             
-            LogPower();
+            //LogPower();
         }
 
         private void LogPower()
@@ -185,11 +185,6 @@ namespace Ships
 
                 return totalPower;
             }
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log("Bonk");
         }
     }
 }
