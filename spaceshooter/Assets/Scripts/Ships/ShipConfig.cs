@@ -1,3 +1,4 @@
+using Ships.ShipSystems.Weapons;
 using UnityEngine;
 
 namespace Ships
@@ -22,6 +23,7 @@ namespace Ships
         public float shieldCapacity;
         public AnimationCurve shieldRechargeRate;
         public AnimationCurve shieldRechargeTime;
-    
+        public Weapon[] weapons;
+
     }
 }

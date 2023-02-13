@@ -11,6 +11,8 @@ namespace Input
 
         public bool isBoosting;
 
+        public bool isFiring;
+
         //0-1
         public float throttle;
         

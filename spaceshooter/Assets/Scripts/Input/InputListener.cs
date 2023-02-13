@@ -95,6 +95,16 @@ namespace Input
                         _inputState.increaseWeaponPower = false;
                     }
                     break;
+                case "FirePrimary":
+                    if (obj.performed)
+                    {
+                        _inputState.isFiring = true;
+                    }
+                    else
+                    {
+                        _inputState.isFiring = false;
+                    }
+                    break;
             }
         }
 

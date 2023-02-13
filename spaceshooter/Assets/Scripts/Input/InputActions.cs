@@ -91,6 +91,15 @@ namespace Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FirePrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""358de82e-2980-4f07-b14c-e70bd9f07709"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -291,6 +300,17 @@ namespace Input
                     ""action"": ""PowerIncreaseWeaponSystem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbd15ba4-1b8c-4c9f-a0e6-77a6f16dcff2"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FirePrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -306,6 +326,7 @@ namespace Input
             m__1SeatFlight_PowerIncreaseEngineSystem = m__1SeatFlight.FindAction("PowerIncreaseEngineSystem", throwIfNotFound: true);
             m__1SeatFlight_PowerIncreaseShieldSystem = m__1SeatFlight.FindAction("PowerIncreaseShieldSystem", throwIfNotFound: true);
             m__1SeatFlight_PowerIncreaseWeaponSystem = m__1SeatFlight.FindAction("PowerIncreaseWeaponSystem", throwIfNotFound: true);
+            m__1SeatFlight_FirePrimary = m__1SeatFlight.FindAction("FirePrimary", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -372,6 +393,7 @@ namespace Input
         private readonly InputAction m__1SeatFlight_PowerIncreaseEngineSystem;
         private readonly InputAction m__1SeatFlight_PowerIncreaseShieldSystem;
         private readonly InputAction m__1SeatFlight_PowerIncreaseWeaponSystem;
+        private readonly InputAction m__1SeatFlight_FirePrimary;
         public struct _1SeatFlightActions
         {
             private @InputActions m_Wrapper;
@@ -383,6 +405,7 @@ namespace Input
             public InputAction @PowerIncreaseEngineSystem => m_Wrapper.m__1SeatFlight_PowerIncreaseEngineSystem;
             public InputAction @PowerIncreaseShieldSystem => m_Wrapper.m__1SeatFlight_PowerIncreaseShieldSystem;
             public InputAction @PowerIncreaseWeaponSystem => m_Wrapper.m__1SeatFlight_PowerIncreaseWeaponSystem;
+            public InputAction @FirePrimary => m_Wrapper.m__1SeatFlight_FirePrimary;
             public InputActionMap Get() { return m_Wrapper.m__1SeatFlight; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -413,6 +436,9 @@ namespace Input
                     @PowerIncreaseWeaponSystem.started -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnPowerIncreaseWeaponSystem;
                     @PowerIncreaseWeaponSystem.performed -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnPowerIncreaseWeaponSystem;
                     @PowerIncreaseWeaponSystem.canceled -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnPowerIncreaseWeaponSystem;
+                    @FirePrimary.started -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnFirePrimary;
+                    @FirePrimary.performed -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnFirePrimary;
+                    @FirePrimary.canceled -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnFirePrimary;
                 }
                 m_Wrapper.m__1SeatFlightActionsCallbackInterface = instance;
                 if (instance != null)
@@ -438,6 +464,9 @@ namespace Input
                     @PowerIncreaseWeaponSystem.started += instance.OnPowerIncreaseWeaponSystem;
                     @PowerIncreaseWeaponSystem.performed += instance.OnPowerIncreaseWeaponSystem;
                     @PowerIncreaseWeaponSystem.canceled += instance.OnPowerIncreaseWeaponSystem;
+                    @FirePrimary.started += instance.OnFirePrimary;
+                    @FirePrimary.performed += instance.OnFirePrimary;
+                    @FirePrimary.canceled += instance.OnFirePrimary;
                 }
             }
         }
@@ -451,6 +480,7 @@ namespace Input
             void OnPowerIncreaseEngineSystem(InputAction.CallbackContext context);
             void OnPowerIncreaseShieldSystem(InputAction.CallbackContext context);
             void OnPowerIncreaseWeaponSystem(InputAction.CallbackContext context);
+            void OnFirePrimary(InputAction.CallbackContext context);
         }
     }
 }

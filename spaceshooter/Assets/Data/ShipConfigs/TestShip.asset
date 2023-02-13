@@ -277,3 +277,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  weapons:
+  - {fileID: 11400000, guid: 931c440b246784f8f98a72172bf6c00b, type: 2}
