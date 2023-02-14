@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Input;
 using Ships.ShipSystems.Weapons;
 using UnityEngine;
 
+[assembly: InternalsVisibleTo("ShipTests")]
 namespace Ships.ShipSystems
 {
     public class WeaponSystem : IShipSystem
@@ -15,7 +17,7 @@ namespace Ships.ShipSystems
         private float _currentPower;
         
         //Between 0-2. Values over 1 result in a bonus damage multiplier
-        private float _chargeLevel = 1f;
+        internal float _chargeLevel = 1f;
 
         public void Initialize(ShipConfig config, Ship ship)
         {

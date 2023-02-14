@@ -418,5 +418,34 @@ namespace Ships.ShipTests
                 oldEulers = eulers;
             }
         }
+
+        [UnityTest]
+        public IEnumerator WeaponSystemChargesOverTime()
+        {
+            yield return handle;
+            var testShip = handle.Result;
+            var ship = testShip.GetComponent<Ship>();
+            var weaponSystem = ship._weaponSystem;
+            var weaponSystemCharge = weaponSystem._chargeLevel;
+            
+            var powerState = new InputState
+            {
+                increaseWeaponPower = true
+            };
+            
+            ship.SetInputState(powerState);
+
+            for (var loop = 0; loop < 100; loop++)
+            {
+                yield return null;
+                Assert.Greater(weaponSystem._chargeLevel, weaponSystemCharge);
+                weaponSystemCharge = weaponSystem._chargeLevel;
+                if (weaponSystemCharge >= 2f)
+                {
+                    break;
+                }
+                ship.SetInputState(powerState);
+            }
+        }
     }
 }
