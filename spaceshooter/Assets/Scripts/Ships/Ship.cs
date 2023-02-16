@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Codice.Client.BaseCommands.Merge;
 using Input;
 using Ships.ShipSystems;
 using UnityEngine;
@@ -165,7 +166,12 @@ namespace Ships
 
         private void LogPower()
         {
-            Debug.Log($"Engine: {_engineSystem.CurrentPower()} Shields: {_shieldSystem.CurrentPower()} Weapons: {_weaponSystem.CurrentPower()}");
+            float totalPower = 0f;
+            foreach (var shipSystem in shipSystems)
+            {
+                totalPower += shipSystem.CurrentPower();
+            }
+            Debug.Log($"Engine: {_engineSystem.CurrentPower()} Shields: {_shieldSystem.CurrentPower()} Weapons: {_weaponSystem.CurrentPower()} Total: { totalPower }");
         }
 
         public void SetInputState(InputState newState)

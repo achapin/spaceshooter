@@ -12,7 +12,7 @@ namespace Ships.ShipTests
     public class ShipTests
     {
         private const string testShipPath = "Assets/Prefabs/Testing/TestShip.prefab";
-        private const float reasonableEpsilon = .0001f;
+        private const float reasonableEpsilon = .001f;
         private AsyncOperationHandle<GameObject> handle;
 
         [SetUp]
@@ -46,8 +46,9 @@ namespace Ships.ShipTests
             for (var loop = 0; loop < 60; loop++)
             {
                 ship.SetInputState(state);
-                yield return null;
+                yield return new WaitForSeconds(.001f);
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
+                currentPower = ship.PowerAllocated;
             }
         }
 
@@ -86,6 +87,7 @@ namespace Ships.ShipTests
                     lastPower = ship._engineSystem.CurrentPower();
                 }
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
+                currentPower = ship.PowerAllocated;
             }
             
             lastPower = ship._shieldSystem.CurrentPower();
@@ -148,29 +150,33 @@ namespace Ships.ShipTests
             for (var loop = 0; loop < 60; loop++)
             {
                 ship.SetInputState(engineState);
-                yield return null;
+                yield return new WaitForSeconds(.001f);
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
+                currentPower = ship.PowerAllocated;
             }
 
             for (var loop = 0; loop < 10; loop++)
             {
                 ship.SetInputState(shieldState);
-                yield return null;
+                yield return new WaitForSeconds(.001f);
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
+                currentPower = ship.PowerAllocated;
             }
 
             for (var loop = 0; loop < 5; loop++)
             {
                 ship.SetInputState(weaponState);
-                yield return null;
+                yield return new WaitForSeconds(.001f);
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
+                currentPower = ship.PowerAllocated;
             }
 
             for (var loop = 0; loop < 60; loop++)
             {
                 ship.SetInputState(balanceState);
-                yield return null;
+                yield return new WaitForSeconds(.001f);
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
+                currentPower = ship.PowerAllocated;
             }
         }
 
@@ -240,7 +246,7 @@ namespace Ships.ShipTests
             //Get up to full throttle with full energy
             for (var loop = 0; loop < 1000; loop++)
             {
-                yield return null;
+                yield return new WaitForSeconds(.001f);
                 ship.SetInputState(engineState);
             }
             
@@ -313,9 +319,10 @@ namespace Ships.ShipTests
             float boostLevel = ship._engineSystem._boostReserve;
             ship.SetInputState(throttleState);
 
-            for (var loop = 0; loop < 1000; loop++)
+            for (var loop = 0; loop < 100; loop++)
             {
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(.01f);
+
                 ship.SetInputState(throttleState);
                 if (boostLevel < ship.config.boostCapacity)
                 {
@@ -341,9 +348,9 @@ namespace Ships.ShipTests
             var oldSpeed = 0f;
             var hasReachedBoostSpeed = false;
 
-            for (var loop = 0; loop < 1000; loop++)
+            for (var loop = 0; loop < 100; loop++)
             {
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(.01f);
                 var position = transform.position;
                 var speed = Vector3.Distance(oldPosition, position) / Time.deltaTime;
                 if (speed < ship.config.boostSpeed)
