@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Codice.Client.BaseCommands.Merge;
 using Input;
 using Ships.ShipSystems;
 using UnityEngine;
 
 [assembly: InternalsVisibleTo("ShipTests")]
+
 namespace Ships
 {
     public class Ship : MonoBehaviour
@@ -54,47 +54,54 @@ namespace Ships
 
         private void Update()
         {
+            Update(Time.deltaTime);
+        }
+
+        internal void Update(float deltaTime)
+        {
             if (_listener != null)
             {
                 _inputState = _listener.GetState();
             }
+
             if (_inputState == null) return;
             if (_inputState.balancePower)
             {
-                ReBalancePower();
+                ReBalancePower(deltaTime);
             }
             else
             {
                 if (_inputState.increaseEnginePower)
                 {
-                    SetPowerToSystem(_engineSystem);
+                    SetPowerToSystem(_engineSystem, deltaTime);
                 }
 
                 if (_inputState.increaseWeaponPower)
                 {
-                    SetPowerToSystem(_weaponSystem);
+                    SetPowerToSystem(_weaponSystem, deltaTime);
                 }
 
                 if (_inputState.increaseShieldPower)
                 {
-                    SetPowerToSystem(_shieldSystem);
+                    SetPowerToSystem(_shieldSystem, deltaTime);
                 }
             }
 
             foreach (var shipSystem in shipSystems)
             {
-                shipSystem.Update(Time.deltaTime, _inputState);
+                shipSystem.Update(deltaTime, _inputState);
             }
 
             _inputState = null;
         }
 
-        private void SetPowerToSystem(IShipSystem toIncrease)
+        private void SetPowerToSystem(IShipSystem toIncrease, float deltaTime)
         {
             if (toIncrease.CurrentPower() >= 1)
             {
                 return;
             }
+
             var systemsWithPowerToDraw = 0;
             foreach (var shipSystem in shipSystems)
             {
@@ -103,25 +110,41 @@ namespace Ships
                     systemsWithPowerToDraw++;
                 }
             }
-            
+
+            if (systemsWithPowerToDraw <= 0)
+            {
+                return;
+            }
+
+            var lowerAmount = deltaTime * (-powerAllocationSpeed / systemsWithPowerToDraw);
+            var amountToGive = 0f;
+
             foreach (var shipSystem in shipSystems)
             {
                 if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
                 {
-                    var lowerPower =
-                        Mathf.Clamp01(shipSystem.CurrentPower() + Time.deltaTime * -powerAllocationSpeed);
-                    shipSystem.AllocatePower(lowerPower);
+                    //Can't pull the correct proportion out, so set it to 0 and 
+                    if (Mathf.Abs(lowerAmount) > shipSystem.CurrentPower())
+                    {
+                        amountToGive = shipSystem.CurrentPower();
+                        shipSystem.AllocatePower(0f);
+                    }
+                    else
+                    {
+                        amountToGive -= lowerAmount;
+                        var lowerPower = Mathf.Clamp01(shipSystem.CurrentPower() + lowerAmount);
+                        shipSystem.AllocatePower(lowerPower);
+                    }
                 }
             }
-            
-            var newPower = Mathf.Clamp01(toIncrease.CurrentPower() +
-                                         Time.deltaTime * powerAllocationSpeed * systemsWithPowerToDraw);
+
+            var newPower = Mathf.Clamp01(toIncrease.CurrentPower() + amountToGive);
             toIncrease.AllocatePower(newPower);
-            
+
             LogPower();
         }
 
-        private void ReBalancePower()
+        private void ReBalancePower(float deltaTime)
         {
             var avgPower = config.energyCapacity / shipSystems.Count;
             var systemsRequiringBalance = 0;
@@ -148,7 +171,7 @@ namespace Ships
             foreach (var shipSystem in shipSystems)
             {
                 if (!(Mathf.Abs(shipSystem.CurrentPower() - avgPower) > Mathf.Epsilon)) continue;
-                var rate = reBalanceSpeed * Time.deltaTime; 
+                var rate = reBalanceSpeed * deltaTime;
                 if (shipSystem.CurrentPower() > avgPower)
                 {
                     rate /= toDecrease;
@@ -157,10 +180,11 @@ namespace Ships
                 {
                     rate /= toIncrease;
                 }
+
                 var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, rate);
                 shipSystem.AllocatePower(newPower);
             }
-            
+
             //LogPower();
         }
 
@@ -171,7 +195,9 @@ namespace Ships
             {
                 totalPower += shipSystem.CurrentPower();
             }
-            Debug.Log($"Engine: {_engineSystem.CurrentPower()} Shields: {_shieldSystem.CurrentPower()} Weapons: {_weaponSystem.CurrentPower()} Total: { totalPower }");
+
+            Debug.Log(
+                $"Engine: {_engineSystem.CurrentPower()} Shields: {_shieldSystem.CurrentPower()} Weapons: {_weaponSystem.CurrentPower()} Total: {totalPower}");
         }
 
         public void SetInputState(InputState newState)

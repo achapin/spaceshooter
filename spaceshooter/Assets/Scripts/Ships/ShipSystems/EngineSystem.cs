@@ -19,7 +19,7 @@ namespace Ships.ShipSystems
         //0-1
         private float _throttle;
 
-        private float _currentSpeed;
+        internal float _currentSpeed;
 
         internal float _boostReserve;
 

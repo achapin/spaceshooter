@@ -14,6 +14,7 @@ namespace Ships.ShipTests
         private const string testShipPath = "Assets/Prefabs/Testing/TestShip.prefab";
         private const float reasonableEpsilon = .001f;
         private AsyncOperationHandle<GameObject> handle;
+        private const float sixtyFPS = 1f / 60f;
 
         [SetUp]
         public void OnStart()
@@ -46,7 +47,7 @@ namespace Ships.ShipTests
             for (var loop = 0; loop < 60; loop++)
             {
                 ship.SetInputState(state);
-                yield return new WaitForSeconds(.001f);
+                ship.Update(sixtyFPS);
                 Assert.Less(Math.Abs(ship.PowerAllocated - currentPower), reasonableEpsilon);
                 currentPower = ship.PowerAllocated;
             }
@@ -218,9 +219,6 @@ namespace Ships.ShipTests
             yield return handle;
             var testShip = handle.Result;
             var ship = testShip.GetComponent<Ship>();
-            var transform = ship.gameObject.transform;
-            var rigidbody = ship.gameObject.GetComponent<Rigidbody>();
-            transform.position = Vector3.up * 1000f;
 
             var throttleState = new InputState
             {
@@ -236,21 +234,19 @@ namespace Ships.ShipTests
             //Get up to full throttle
             for (var loop = 0; loop < 1000; loop++)
             {
-                yield return null;
-                ship.SetInputState(throttleState);
+                ship._engineSystem.Update(sixtyFPS, throttleState);
             }
 
-            var oldSpeed = rigidbody.velocity.magnitude;
+            var oldSpeed = ship._engineSystem._currentSpeed;
             Assert.Greater(oldSpeed, 0f);
 
             //Get up to full throttle with full energy
             for (var loop = 0; loop < 1000; loop++)
             {
-                yield return new WaitForSeconds(.001f);
-                ship.SetInputState(engineState);
+                ship._engineSystem.Update(sixtyFPS, engineState);
             }
             
-            var newSpeed = rigidbody.velocity.magnitude;
+            var newSpeed = ship._engineSystem._currentSpeed;
 
             Assert.Greater(newSpeed, oldSpeed);
         }
@@ -261,7 +257,6 @@ namespace Ships.ShipTests
             yield return handle;
             var testShip = handle.Result;
             var ship = testShip.GetComponent<Ship>();
-            var transform = ship.gameObject.transform;
 
             var throttleState = new InputState
             {
@@ -277,28 +272,18 @@ namespace Ships.ShipTests
             //Get up to full throttle
             for (var loop = 0; loop < 1000; loop++)
             {
-                yield return new WaitForFixedUpdate();
-                ship.SetInputState(throttleState);
+                ship._engineSystem.Update(sixtyFPS, throttleState);
             }
-
-            var oldPosition = transform.position;
-            ship.SetInputState(throttleState);
-            yield return new WaitForFixedUpdate();
-            var position = transform.position;
-            var oldSpeed = Vector3.Distance(position, oldPosition) / Time.deltaTime;
+            
+            var oldSpeed = ship._engineSystem._currentSpeed;
 
             //Get up to full throttle with full energy
             for (var loop = 0; loop < 1000; loop++)
             {
-                yield return null;
-                ship.SetInputState(weaponState);
+                ship._engineSystem.Update(sixtyFPS, weaponState);
             }
-
-            oldPosition = ship.gameObject.transform.position;
-            ship.SetInputState(weaponState);
-            yield return new WaitForFixedUpdate();
-            position = transform.position;
-            var newSpeed = Vector3.Distance(position, oldPosition) / Time.deltaTime;
+            
+            var newSpeed = ship._engineSystem._currentSpeed;
 
             Assert.Less(newSpeed, oldSpeed);
         }
@@ -309,7 +294,6 @@ namespace Ships.ShipTests
             yield return handle;
             var testShip = handle.Result;
             var ship = testShip.GetComponent<Ship>();
-            var transform = testShip.transform;
 
             var throttleState = new InputState
             {
@@ -317,13 +301,10 @@ namespace Ships.ShipTests
             };
 
             float boostLevel = ship._engineSystem._boostReserve;
-            ship.SetInputState(throttleState);
-
+            
             for (var loop = 0; loop < 100; loop++)
             {
-                yield return new WaitForSeconds(.01f);
-
-                ship.SetInputState(throttleState);
+                ship._engineSystem.Update(sixtyFPS, throttleState);
                 if (boostLevel < ship.config.boostCapacity)
                 {
                     Assert.Greater(ship._engineSystem._boostReserve, boostLevel);
@@ -344,25 +325,24 @@ namespace Ships.ShipTests
             };
 
             ship.SetInputState(boostState);
-            var oldPosition = transform.position;
-            var oldSpeed = 0f;
+            var oldSpeed = ship._engineSystem._currentSpeed;
             var hasReachedBoostSpeed = false;
+            boostLevel = ship._engineSystem._boostReserve;
 
             for (var loop = 0; loop < 100; loop++)
             {
-                yield return new WaitForSeconds(.01f);
-                var position = transform.position;
-                var speed = Vector3.Distance(oldPosition, position) / Time.deltaTime;
-                if (speed < ship.config.boostSpeed)
+                ship._engineSystem.Update(sixtyFPS, boostState);
+                var speed = ship._engineSystem._currentSpeed;
+                if (speed < ship.config.boostSpeed && !hasReachedBoostSpeed)
                 {
                     Assert.Greater(speed, oldSpeed);
+                    oldSpeed = speed;
                 }
                 else
                 {
                     hasReachedBoostSpeed = true;
                 }
 
-                ship.SetInputState(boostState);
                 if (boostLevel > 0)
                 {
                     Assert.Less(ship._engineSystem._boostReserve, boostLevel);
