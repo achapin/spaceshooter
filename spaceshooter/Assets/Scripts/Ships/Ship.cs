@@ -116,14 +116,20 @@ namespace Ships
                 return;
             }
 
-            var lowerAmount = deltaTime * (-powerAllocationSpeed / systemsWithPowerToDraw);
+            var amountToFull = 1f - toIncrease.CurrentPower();
+            var maxDelta = deltaTime * powerAllocationSpeed;
+            var lowerAmount =  -maxDelta / systemsWithPowerToDraw;
+            if (amountToFull < maxDelta)
+            {
+                lowerAmount = -amountToFull / systemsWithPowerToDraw;
+            }
             var amountToGive = 0f;
 
             foreach (var shipSystem in shipSystems)
             {
                 if (shipSystem != toIncrease && shipSystem.CurrentPower() > 0)
                 {
-                    //Can't pull the correct proportion out, so set it to 0 and 
+                    //Can't pull the correct proportion out, so set it to 0 and give what remained
                     if (Mathf.Abs(lowerAmount) > shipSystem.CurrentPower())
                     {
                         amountToGive = shipSystem.CurrentPower();
