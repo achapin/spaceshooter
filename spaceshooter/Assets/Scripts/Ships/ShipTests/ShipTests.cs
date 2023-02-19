@@ -243,7 +243,10 @@ namespace Ships.ShipTests
             //Get up to full throttle with full energy
             for (var loop = 0; loop < 1000; loop++)
             {
-                ship._engineSystem.Update(sixtyFPS, engineState);
+                ship.SetInputState(engineState);
+                ship.Update(sixtyFPS);
+                ship.LogPower();
+                Debug.Log($"Speed {ship._engineSystem._currentSpeed}");
             }
             
             var newSpeed = ship._engineSystem._currentSpeed;
@@ -276,11 +279,15 @@ namespace Ships.ShipTests
             }
             
             var oldSpeed = ship._engineSystem._currentSpeed;
+            Debug.Log($"Old speed {oldSpeed}");
 
             //Get up to full throttle with full energy
             for (var loop = 0; loop < 1000; loop++)
             {
-                ship._engineSystem.Update(sixtyFPS, weaponState);
+                ship.SetInputState(weaponState);
+                ship.Update(sixtyFPS);
+                ship.LogPower();
+                Debug.Log($"Speed {ship._engineSystem._currentSpeed}");
             }
             
             var newSpeed = ship._engineSystem._currentSpeed;

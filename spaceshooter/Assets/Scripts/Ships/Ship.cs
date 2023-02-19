@@ -146,8 +146,6 @@ namespace Ships
 
             var newPower = Mathf.Clamp01(toIncrease.CurrentPower() + amountToGive);
             toIncrease.AllocatePower(newPower);
-
-            LogPower();
         }
 
         private void ReBalancePower(float deltaTime)
@@ -190,11 +188,9 @@ namespace Ships
                 var newPower = Mathf.MoveTowards(shipSystem.CurrentPower(), avgPower, rate);
                 shipSystem.AllocatePower(newPower);
             }
-
-            //LogPower();
         }
 
-        private void LogPower()
+        internal void LogPower()
         {
             float totalPower = 0f;
             foreach (var shipSystem in shipSystems)

@@ -53,7 +53,7 @@ namespace Ships.ShipSystems
 
             if (_currentSpeed < targetSpeed)
             {
-                _currentSpeed += Mathf.MoveTowards(_currentSpeed, targetSpeed,
+                _currentSpeed = Mathf.MoveTowards(_currentSpeed, targetSpeed,
                     _config.acceleration.Evaluate(_currentPower) * Time.deltaTime);
             }
 
