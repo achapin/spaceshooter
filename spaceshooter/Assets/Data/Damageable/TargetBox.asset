@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e0f4a727a0f348fb83ad104168586c3, type: 3}
-  m_Name: SimpleWeapon1
+  m_Script: {fileID: 11500000, guid: acf272bbe97f245b198d8ae6147078a0, type: 3}
+  m_Name: TargetBox
   m_EditorClassIdentifier: 
-  chargeToSpend: 0.1
-  timeToFire: 0.1
-  damageToDo: 0.1
+  totalHp: 1

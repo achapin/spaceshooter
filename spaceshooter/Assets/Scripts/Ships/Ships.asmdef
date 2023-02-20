@@ -2,7 +2,8 @@
     "name": "Ships",
     "rootNamespace": "",
     "references": [
-        "GUID:0dc0bee2709f8428db3b9170028c5114"
+        "GUID:0dc0bee2709f8428db3b9170028c5114",
+        "GUID:734cbe96837504feca80eb58ae063d82"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
