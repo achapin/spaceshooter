@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Damage
 {
-    [CreateAssetMenu(menuName = "Create RemoveOnDestroy", fileName = "Damageable/RemoveOnDestroy", order = 0)]
-    public class RemoveOnDestroy : Damageable
+    [CreateAssetMenu(fileName = "SimpleDestroy", menuName = "Damageable/SimpleDestroy", order = 0)]
+    public class SimpleDestroy : Damageable
     {
         [SerializeField] internal float totalHp;
 
@@ -13,7 +13,6 @@ namespace Damage
         private void OnEnable()
         {
             _currentHp = totalHp;
-            Destroyed += OnDestroyed;
         }
 
         public override void TakeDamage(float damage)
@@ -25,12 +24,7 @@ namespace Damage
             {
                 OnDestroyed();
             }
-        }
-        
-        private void OnDestroyed()
-        {
-            Debug.Log("I Have been destroyed");
-            //TODO: Remove gameobject
-        }
+        } 
+
     }
 }

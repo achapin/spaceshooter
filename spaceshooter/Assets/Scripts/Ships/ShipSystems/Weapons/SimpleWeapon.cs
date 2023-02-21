@@ -38,7 +38,7 @@ namespace Ships.ShipSystems.Weapons
             if (Physics.Raycast(_ship.transform.position, _ship.transform.forward, out RaycastHit hitInfo))
             {
                 Debug.Log($"Hit {hitInfo.collider.gameObject.name}");
-                var damageHandler = hitInfo.collider.GetComponent<DamagableHandler>();
+                var damageHandler = hitInfo.collider.GetComponent<DamageableHandler>();
                 if( damageHandler != null)
                 {
                     damageHandler.TakeDamage(damageToDo);
