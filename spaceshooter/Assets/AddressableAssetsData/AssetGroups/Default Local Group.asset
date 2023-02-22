@@ -25,6 +25,14 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Testing/TestShip.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2fd8b64d7150d4948b624a056ba1726e
+    m_Address: Assets/Prefabs/Testing/Targetbox.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2574305941fbc46a796e05d576259d58
+    m_Address: Assets/Prefabs/Testing/TestControlledShip.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d5ada1d1cf86c4d26a0a666cc89760a1, type: 2}
   m_SchemaSet:

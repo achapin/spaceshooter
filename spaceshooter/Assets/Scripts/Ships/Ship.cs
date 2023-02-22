@@ -6,7 +6,7 @@ using Ships.ShipSystems;
 using UnityEngine;
 
 [assembly: InternalsVisibleTo("ShipTests")]
-
+[assembly: InternalsVisibleTo("DamageTests")]
 namespace Ships
 {
     public class Ship : MonoBehaviour
