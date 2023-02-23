@@ -36,11 +36,16 @@ namespace Ships.ShipSystems.Weapons
             _fireCountdown = timeToFire;
             if (Physics.Raycast(_ship.transform.position, _ship.transform.forward, out RaycastHit hitInfo))
             {
+                Debug.Log($"Pew! hit {hitInfo.collider.gameObject.name}");
                 var damageHandler = hitInfo.collider.GetComponent<DamageableHandler>();
                 if( damageHandler != null)
                 {
                     damageHandler.TakeDamage(damageToDo);
                 }
+            }
+            else
+            {
+                Debug.Log("MISSED");
             }
         }
     }

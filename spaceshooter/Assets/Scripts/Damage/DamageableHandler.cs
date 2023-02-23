@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Damage
@@ -11,6 +12,11 @@ namespace Damage
         public void TakeDamage(float damage)
         {
             _damageableConfig.TakeDamage(damage);
+        }
+
+        public void OnDestroy()
+        {
+            Destroy(damageable);
         }
     }
 }
