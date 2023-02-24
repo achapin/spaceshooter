@@ -8,7 +8,7 @@ namespace Damage
     {
 
         private DamageableHandler handler;
-        void Awake()
+        private void Awake()
         {
             handler = GetComponent<DamageableHandler>();
             handler.damageable.DamageTaken += DamageableOnDamageTaken;
@@ -22,6 +22,7 @@ namespace Damage
 
         private void DamageableOnDestroyed()
         {
+            Debug.Log($"{gameObject.name} being destroyed");
             Destroy(gameObject);
         }
 
