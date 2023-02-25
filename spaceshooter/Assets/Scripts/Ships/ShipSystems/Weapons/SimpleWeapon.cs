@@ -31,7 +31,7 @@ namespace Ships.ShipSystems.Weapons
             }
         }
 
-        protected virtual void FireWeapon()
+        private void FireWeapon()
         {
             _fireCountdown = timeToFire;
             if (Physics.Raycast(_ship.transform.position, _ship.transform.forward, out RaycastHit hitInfo))

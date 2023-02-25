@@ -68,12 +68,15 @@ namespace Damage.DamageTests
                 isFiring = true,
                 increaseWeaponPower = true
             };
+
+            yield return null;
             for (var loop = 0; loop < 240; loop++)
             {
                 ship.SetInputState(state);
                 ship.Update(sixtyFPS);
             }
             
+            Debug.Log($"Total damage {totalDamage} Was Destroyed? {wasDestroyed}");
             Assert.Greater(totalDamage, 0f);
             Assert.True(wasDestroyed);
         }

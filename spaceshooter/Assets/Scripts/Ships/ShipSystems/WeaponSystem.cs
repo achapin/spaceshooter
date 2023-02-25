@@ -24,10 +24,12 @@ namespace Ships.ShipSystems
             _config = config;
             _ship = ship;
 
-            _weapons = _config.weapons.ToList();
-            foreach (var weapon in _weapons)
+            _weapons = new List<Weapon>();
+            foreach (var weapon in _config.weapons)
             {
-                weapon.Initialize(ship);
+                var weaponInstance = Object.Instantiate(weapon);
+                _weapons.Add(weaponInstance);
+                weaponInstance.Initialize(ship);
             }
         }
 
