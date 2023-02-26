@@ -12,14 +12,18 @@ namespace Ships.ShipSystems.Weapons
         public float timeToFire;
         public float damageToDo;
 
+        public SimpleWeaponDisplay displayPrefab;
+
         private float _fireCountdown;
 
         private Ship _ship;
+        private SimpleWeaponDisplay _displayInstance;
 
         public override void Initialize(Ship ship)
         {
             Debug.Log($"Simple weapon initialized with ship {ship.gameObject.name}");
             _ship = ship;
+            _displayInstance = GameObject.Instantiate(displayPrefab);
         }
 
         public override void UpdateWeapon(WeaponSystem weaponSystem, InputState inputState, float deltaTime)
@@ -36,7 +40,7 @@ namespace Ships.ShipSystems.Weapons
             _fireCountdown = timeToFire;
             if (Physics.Raycast(_ship.transform.position, _ship.transform.forward, out RaycastHit hitInfo))
             {
-                Debug.Log($"Pew! hit {hitInfo.collider.gameObject.name}");
+                _displayInstance.ShowShot(_ship.transform.position, hitInfo.point, true);
                 var damageHandler = hitInfo.collider.GetComponent<DamageableHandler>();
                 if( damageHandler != null)
                 {
@@ -45,7 +49,7 @@ namespace Ships.ShipSystems.Weapons
             }
             else
             {
-                Debug.Log("MISSED");
+                _displayInstance.ShowShot(_ship.transform.position, _ship.transform.TransformPoint(Vector3.forward) * 100f, false);
             }
         }
     }
