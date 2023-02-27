@@ -49,7 +49,7 @@ namespace Ships.ShipSystems.Weapons
             }
             else
             {
-                _displayInstance.ShowShot(_ship.transform.position, _ship.transform.TransformPoint(Vector3.forward) * 100f, false);
+                _displayInstance.ShowShot(_ship.transform.position, _ship.transform.position + _ship.transform.forward.normalized * 100f, false);
             }
         }
     }
