@@ -32,12 +32,12 @@ namespace Damage.DamageTests
             var target = testTarget.GetComponent<DamageableHandler>();
             float totalDamage = 0f;
             bool wasDestroyed = false;
-            target.damageable.DamageTaken += delegate(float f) { totalDamage += f; };
-            target.damageable.Destroyed += delegate { wasDestroyed = true; };
+            target.DamageTaken += delegate(float f) { totalDamage += f; };
+            target.Destroyed += delegate { wasDestroyed = true; };
             
             for (var loop = 0; loop < 240; loop++)
             {
-                target.damageable.TakeDamage(.1f);
+                target.TakeDamage(.1f);
                 yield return new WaitForEndOfFrame();
             }
             
@@ -60,8 +60,8 @@ namespace Damage.DamageTests
             Assert.Greater(ship.PowerAllocated, 0);
             float totalDamage = 0f;
             bool wasDestroyed = false;
-            target.damageable.DamageTaken += delegate(float f) { totalDamage += f; };
-            target.damageable.Destroyed += delegate { wasDestroyed = true; };
+            target.DamageTaken += delegate(float f) { totalDamage += f; };
+            target.Destroyed += delegate { wasDestroyed = true; };
 
             var state = new InputState
             {

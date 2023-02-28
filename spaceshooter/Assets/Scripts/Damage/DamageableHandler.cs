@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Damage
@@ -5,25 +6,20 @@ namespace Damage
     [DefaultExecutionOrder(-50)] //Has to comme before anything that references damageable, because it won't be set in awake
     public class DamageableHandler : MonoBehaviour
     {
-        [SerializeField] private Damageable _damageableConfig;
+        [SerializeField] private float hp;
 
-        private Damageable _damageableInstance;
-
-        public Damageable damageable => _damageableInstance;
-
-        private void Awake()
-        {
-            _damageableInstance = Instantiate(_damageableConfig);
-        }
+        public event Action<float> DamageTaken;
+        public event Action Destroyed;
 
         public void TakeDamage(float damage)
         {
-            damageable.TakeDamage(damage);
+            DamageTaken?.Invoke(damage);
+            hp -= damage;
+            if (hp <= 0f)
+            {
+                Destroyed?.Invoke();
+            }
         }
-
-        public void OnDestroy()
-        {
-            Destroy(damageable);
-        }
+        
     }
 }

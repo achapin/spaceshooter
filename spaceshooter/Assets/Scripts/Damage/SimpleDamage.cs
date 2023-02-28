@@ -10,8 +10,8 @@ namespace Damage
         private void Awake()
         {
             handler = GetComponent<DamageableHandler>();
-            handler.damageable.DamageTaken += DamageableOnDamageTaken;
-            handler.damageable.Destroyed += DamageableOnDestroyed;
+            handler.DamageTaken += DamageableOnDamageTaken;
+            handler.Destroyed += DamageableOnDestroyed;
         }
         
         private void DamageableOnDamageTaken(float obj)
@@ -27,8 +27,8 @@ namespace Damage
 
         private void OnDestroy()
         {
-            handler.damageable.DamageTaken -= DamageableOnDamageTaken;
-            handler.damageable.Destroyed -= DamageableOnDestroyed;
+            handler.DamageTaken -= DamageableOnDamageTaken;
+            handler.Destroyed -= DamageableOnDestroyed;
         }
     }
 }
