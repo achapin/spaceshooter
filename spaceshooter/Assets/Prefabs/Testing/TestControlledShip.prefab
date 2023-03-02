@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 55282717804436506}
   - component: {fileID: -3602643110805620422}
   - component: {fileID: 798378176853773428}
+  - component: {fileID: 7376943290197717910}
   m_Layer: 0
   m_Name: TestControlledShip
   m_TagString: Untagged
@@ -252,3 +253,15 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!114 &7376943290197717910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083770223625244121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44bc9c3eb6f8a4009962a9fa770d3b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

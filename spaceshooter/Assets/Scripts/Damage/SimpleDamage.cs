@@ -5,6 +5,7 @@ namespace Damage
     [RequireComponent(typeof(DamageableHandler))]
     public class SimpleDamage : MonoBehaviour
     {
+        [SerializeField] private float hp;
 
         private DamageableHandler handler;
         private void Awake()
@@ -17,6 +18,11 @@ namespace Damage
         private void DamageableOnDamageTaken(float obj)
         {
             Debug.Log($"Damaged for {obj}");
+            hp -= obj;
+            if (hp <= 0f)
+            {
+                handler.DestroyDamageable();
+            }
         }
 
         private void DamageableOnDestroyed()

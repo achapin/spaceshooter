@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Damage;
 using Input;
 using Ships.ShipSystems;
 using UnityEngine;
@@ -22,6 +23,9 @@ namespace Ships
 
         private InputState _inputState;
         private InputListener _listener;
+
+        private DamageableHandler _damageableHandler;
+        private float _hp;
 
         void Start()
         {
@@ -49,6 +53,17 @@ namespace Ships
             {
                 shipSystem.Initialize(config, this);
                 shipSystem.AllocatePower(powerPerSystem);
+            }
+
+            _hp = config.maxHp;
+            _damageableHandler = GetComponent<DamageableHandler>();
+            if(_damageableHandler != null)
+            {
+                _damageableHandler.DamageTaken += DamageableOnDamageTaken;
+            }
+            else
+            {
+                Debug.Log("No DamageableHandler found");
             }
         }
 
@@ -218,6 +233,17 @@ namespace Ships
                 }
 
                 return totalPower;
+            }
+        }
+
+        private void DamageableOnDamageTaken(float damageIn)
+        {
+            _hp -= damageIn;
+            Debug.Log($"HP now {_hp}");
+            if (_hp <= 0)
+            {
+                _damageableHandler.DestroyDamageable();
+                Debug.Log("Ship destroyed");
             }
         }
     }

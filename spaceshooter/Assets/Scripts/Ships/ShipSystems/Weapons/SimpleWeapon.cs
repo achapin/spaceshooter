@@ -23,7 +23,7 @@ namespace Ships.ShipSystems.Weapons
         {
             Debug.Log($"Simple weapon initialized with ship {ship.gameObject.name}");
             _ship = ship;
-            _displayInstance = GameObject.Instantiate(displayPrefab);
+            _displayInstance = Instantiate(displayPrefab);
         }
 
         public override void UpdateWeapon(WeaponSystem weaponSystem, InputState inputState, float deltaTime)
@@ -41,7 +41,7 @@ namespace Ships.ShipSystems.Weapons
             if (Physics.Raycast(_ship.transform.position, _ship.transform.forward, out RaycastHit hitInfo))
             {
                 _displayInstance.ShowShot(_ship.transform.position, hitInfo.point, true);
-                var damageHandler = hitInfo.collider.GetComponent<DamageableHandler>();
+                var damageHandler = hitInfo.collider.GetComponentInParent<DamageableHandler>();
                 if( damageHandler != null)
                 {
                     damageHandler.TakeDamage(damageToDo);
