@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerAllocationSpeed: 1
-  config: {fileID: 11400000, guid: c3dee9019a2234412a0ccdbb62f051df, type: 2}
+  config: {fileID: 11400000, guid: 06a84846accc3442bb2f46eff923a846, type: 2}
 --- !u!54 &798378176853773428
 Rigidbody:
   m_ObjectHideFlags: 0

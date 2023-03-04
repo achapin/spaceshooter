@@ -33,6 +33,14 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Testing/TestControlledShip.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 06a84846accc3442bb2f46eff923a846
+    m_Address: Assets/Data/ShipConfigs/TestShipDestroy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3b538985d3b3547e29c41e8d33ba53c1
+    m_Address: Assets/Prefabs/Testing/TestShipDamageable.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d5ada1d1cf86c4d26a0a666cc89760a1, type: 2}
   m_SchemaSet:
