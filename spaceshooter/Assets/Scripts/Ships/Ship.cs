@@ -238,7 +238,8 @@ namespace Ships
 
         private void DamageableOnDamageTaken(float damageIn)
         {
-            _hp -= damageIn;
+            var offsetDamage = _shieldSystem.ReduceDamage(damageIn);
+            _hp -= offsetDamage;
             Debug.Log($"HP now {_hp}");
             if (_hp <= 0)
             {
