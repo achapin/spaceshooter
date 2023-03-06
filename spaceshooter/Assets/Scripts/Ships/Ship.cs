@@ -24,8 +24,8 @@ namespace Ships
         private InputState _inputState;
         private InputListener _listener;
 
-        private DamageableHandler _damageableHandler;
-        private float _hp;
+        internal DamageableHandler _damageableHandler;
+        internal float _hp;
 
         void Start()
         {

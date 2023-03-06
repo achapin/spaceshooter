@@ -7,7 +7,8 @@
         "Ships",
         "Input",
         "Unity.Addressables",
-        "Unity.ResourceManager"
+        "Unity.ResourceManager",
+        "Damage"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

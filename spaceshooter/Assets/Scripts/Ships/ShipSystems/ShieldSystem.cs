@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using Input;
 using UnityEngine;
 
-[assembly: InternalsVisibleTo("ShieldTests")]
+[assembly: InternalsVisibleTo("ShipTests")]
 namespace Ships.ShipSystems
 {
     public class ShieldSystem : IShipSystem
