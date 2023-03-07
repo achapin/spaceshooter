@@ -101,5 +101,76 @@ namespace Ships.ShipTests
             Assert.True(hpDifference > 0);
             Assert.True(hpDifference < damage);
         }
+        
+        [UnityTest]
+        public IEnumerator ShieldsChargeAfterDamage()
+        {
+            yield return handle;
+            var testShip = handle.Result;
+            var ship = testShip.GetComponent<Ship>();
+            
+            yield return null; //Force the Awake methods to run
+            
+            var state = new InputState
+            {
+                increaseShieldPower = true
+            };
+            for (var loop = 0; loop < 60; loop++)
+            {
+                ship.SetInputState(state);
+                ship.Update(sixtyFPS);
+            }
+            Assert.Greater(ship._shieldSystem._shieldStrength, 0f);
+            var damage = ship._shieldSystem._shieldStrength / 2f; //Half to avoid edge cases
+            var shieldBeforeHit = ship._shieldSystem._shieldStrength;
+            ship._damageableHandler.TakeDamage(damage);
+            var shieldAfterHit = ship._shieldSystem._shieldStrength;
+            Assert.Greater(shieldBeforeHit, shieldAfterHit);
+            int framesToRecharge = Mathf.FloorToInt(ship.config.shieldRechargeTime.Evaluate(ship._shieldSystem._currentPower) / sixtyFPS);
+            for (var loop = 0; loop < framesToRecharge; loop++)
+            {
+                ship.SetInputState(state);
+                ship.Update(sixtyFPS);
+                Assert.Greater(ship._shieldSystem._shieldStrength, shieldAfterHit);
+                shieldAfterHit = ship._shieldSystem._shieldStrength;
+            }
+        }
+        
+        [UnityTest]
+        public IEnumerator ShieldsTakeTimeToRecharge()
+        {
+            yield return handle;
+            var testShip = handle.Result;
+            var ship = testShip.GetComponent<Ship>();
+            
+            yield return null; //Force the Awake methods to run
+            
+            var state = new InputState
+            {
+                increaseShieldPower = true
+            };
+            for (var loop = 0; loop < 60; loop++)
+            {
+                ship.SetInputState(state);
+                ship.Update(sixtyFPS);
+            }
+            Assert.Greater(ship._shieldSystem._shieldStrength, 0f);
+            var damage = ship._shieldSystem._shieldStrength * 2f; //Double to guarantee that shields are broken
+            var shieldBeforeHit = ship._shieldSystem._shieldStrength;
+            ship._damageableHandler.TakeDamage(damage);
+            var shieldAfterHit = ship._shieldSystem._shieldStrength;
+            Assert.Greater(shieldBeforeHit, shieldAfterHit);
+            Assert.True(Mathf.Abs(ship._shieldSystem._shieldStrength) < reasonableEpsilon); //Shields should be 0
+            int framesToRecharge = Mathf.FloorToInt(ship.config.shieldRechargeTime.Evaluate(ship._shieldSystem._currentPower) / sixtyFPS);
+            for (var loop = 0; loop < framesToRecharge; loop++)
+            {
+                ship.SetInputState(state);
+                ship.Update(sixtyFPS);
+                Assert.True(Mathf.Abs(ship._shieldSystem._shieldStrength - shieldAfterHit) < reasonableEpsilon, $"Shields have started recharging at frame {loop} instead of {framesToRecharge}");
+            }
+            ship.SetInputState(state);
+            ship.Update(sixtyFPS);
+            Assert.Greater(ship._shieldSystem._shieldStrength, shieldAfterHit, $"Shields have not started charging after {framesToRecharge} update frames");
+        }
     }
 }

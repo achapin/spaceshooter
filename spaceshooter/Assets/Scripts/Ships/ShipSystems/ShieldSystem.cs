@@ -27,10 +27,12 @@ namespace Ships.ShipSystems
 
         public void Update(float deltaTime, InputState inputState)
         {
+            var deltaTimeToUse = deltaTime;
             if (_timeToRecharge > 0f)
             {
                 if (_timeToRecharge < deltaTime)
                 {
+                    deltaTimeToUse -= _timeToRecharge;
                     _timeToRecharge = 0f;
                 }
                 else
@@ -42,7 +44,7 @@ namespace Ships.ShipSystems
             if (_shieldStrength < _config.shieldCapacity)
             {
                 _shieldStrength = Mathf.MoveTowards(_shieldStrength, _config.shieldCapacity,
-                    deltaTime * _config.shieldRechargeRate.Evaluate(_currentPower));
+                    deltaTimeToUse * _config.shieldRechargeRate.Evaluate(_currentPower));
             }
         }
 
