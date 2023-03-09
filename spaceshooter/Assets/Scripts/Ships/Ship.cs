@@ -240,7 +240,7 @@ namespace Ships
         {
             var offsetDamage = _shieldSystem.ReduceDamage(damageIn);
             _hp -= offsetDamage;
-            Debug.Log($"HP now {_hp}");
+            Debug.Log($"HP now {_hp} Shield level now {_shieldSystem._shieldStrength}");
             if (_hp <= 0)
             {
                 _damageableHandler.DestroyDamageable();

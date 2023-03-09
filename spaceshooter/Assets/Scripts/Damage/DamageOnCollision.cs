@@ -17,7 +17,10 @@ namespace Damage
 
         public void OnCollisionEnter(Collision collision)
         {
-            _handler.TakeDamage(damageBySpeed.Evaluate(collision.relativeVelocity.magnitude));
+            var speed = collision.relativeVelocity.magnitude;
+            var damage = damageBySpeed.Evaluate(speed);
+            Debug.Log($"Speed {speed} results in {damage} damage");
+            _handler.TakeDamage(damage);
         }
     }
 }
