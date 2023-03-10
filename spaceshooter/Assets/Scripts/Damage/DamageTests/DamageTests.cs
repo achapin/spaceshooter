@@ -14,25 +14,35 @@ namespace Damage.DamageTests
         private const string testShipPath = "Assets/Prefabs/Testing/TestShip.prefab";
         private const string testTargetPath = "Assets/Prefabs/Testing/Targetbox.prefab";
         private const string testTargetShipPath = "Assets/Prefabs/Testing/TestShipDamageable.prefab";
+        private const string testDamageTypePath = "Assets/Data/DamageTypes/Bullet.asset";
         private AsyncOperationHandle<GameObject> shipHandle;
         private AsyncOperationHandle<GameObject> targetHandle;
+        private AsyncOperationHandle<DamageType> damageHandle;
         private const float sixtyFPS = 1f / 60f;
+
+        [SetUp]
+        public void Setup()
+        {
+            damageHandle = Addressables.LoadAssetAsync<DamageType>(testDamageTypePath);
+        }
 
         [UnityTest]
         public IEnumerator TargetTakesDamageAndIsDestroyed()
         {
+            yield return damageHandle;
+            var damageType = damageHandle.Result;
             targetHandle = Addressables.InstantiateAsync(testTargetPath);
             yield return targetHandle;
             var testTarget = targetHandle.Result;
             var target = testTarget.GetComponent<DamageableHandler>();
             float totalDamage = 0f;
             bool wasDestroyed = false;
-            target.DamageTaken += delegate(float f) { totalDamage += f; };
+            target.DamageTaken += delegate(float f, DamageType _) { totalDamage += f; };
             target.Destroyed += delegate { wasDestroyed = true; };
             
             for (var loop = 0; loop < 240; loop++)
             {
-                target.TakeDamage(.1f);
+                target.TakeDamage(.1f, damageType);
                 yield return new WaitForEndOfFrame();
             }
             
@@ -57,7 +67,7 @@ namespace Damage.DamageTests
             Assert.Greater(ship.PowerAllocated, 0);
             float totalDamage = 0f;
             bool wasDestroyed = false;
-            target.DamageTaken += delegate(float f) { totalDamage += f; };
+            target.DamageTaken += delegate(float f, DamageType _) { totalDamage += f; };
             target.Destroyed += delegate { wasDestroyed = true; };
 
             var state = new InputState
@@ -95,7 +105,7 @@ namespace Damage.DamageTests
             Assert.Greater(ship.PowerAllocated, 0);
             float totalDamage = 0f;
             bool wasDestroyed = false;
-            target.DamageTaken += delegate(float f) { totalDamage += f; };
+            target.DamageTaken += delegate(float f, DamageType _) { totalDamage += f; };
             target.Destroyed += delegate { wasDestroyed = true; };
 
             var state = new InputState

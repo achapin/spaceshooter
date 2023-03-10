@@ -7,6 +7,7 @@ namespace Damage
     public class DamageOnCollision : MonoBehaviour
     {
         [SerializeField] private AnimationCurve damageBySpeed;
+        [SerializeField] private DamageType damageType;
         
         private DamageableHandler _handler;
         
@@ -20,7 +21,7 @@ namespace Damage
             var speed = collision.relativeVelocity.magnitude;
             var damage = damageBySpeed.Evaluate(speed);
             Debug.Log($"Speed {speed} results in {damage} damage");
-            _handler.TakeDamage(damage);
+            _handler.TakeDamage(damage, damageType);
         }
     }
 }

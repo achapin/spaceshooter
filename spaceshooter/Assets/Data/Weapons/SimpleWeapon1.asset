@@ -15,4 +15,5 @@ MonoBehaviour:
   chargeToSpend: 0.1
   timeToFire: 0.1
   damageToDo: 0.1
+  damageType: {fileID: 11400000, guid: 08898db107efb435b9147c7f18a8e067, type: 2}
   displayPrefab: {fileID: 3125827661820590865, guid: b4188fd5d6a2c46279873803b0631318, type: 3}

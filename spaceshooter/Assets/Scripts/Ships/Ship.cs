@@ -236,7 +236,7 @@ namespace Ships
             }
         }
 
-        private void DamageableOnDamageTaken(float damageIn)
+        private void DamageableOnDamageTaken(float damageIn, DamageType damageType)
         {
             var offsetDamage = _shieldSystem.ReduceDamage(damageIn);
             _hp -= offsetDamage;

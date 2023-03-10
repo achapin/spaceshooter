@@ -15,10 +15,10 @@ namespace Damage
             handler.Destroyed += DamageableOnDestroyed;
         }
         
-        private void DamageableOnDamageTaken(float obj)
+        private void DamageableOnDamageTaken(float damageAmount, DamageType damageType)
         {
-            Debug.Log($"Damaged for {obj}");
-            hp -= obj;
+            Debug.Log($"Damaged for {damageAmount}");
+            hp -= damageAmount;
             if (hp <= 0f)
             {
                 handler.DestroyDamageable();

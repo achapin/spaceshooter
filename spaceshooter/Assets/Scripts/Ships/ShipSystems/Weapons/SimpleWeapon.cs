@@ -12,12 +12,37 @@ namespace Ships.ShipSystems.Weapons
         public float timeToFire;
         public float damageToDo;
 
+        public DamageType damageType;
+
         public SimpleWeaponDisplay displayPrefab;
 
         private float _fireCountdown;
 
         private Ship _ship;
         private SimpleWeaponDisplay _displayInstance;
+
+        private void OnValidate()
+        {
+            if (damageType == null)
+            {
+                Debug.LogError($"No Damage Type set for Simple Weapon {name}");
+            }
+
+            if (displayPrefab == null)
+            {
+                Debug.LogError($"No Display Prefab set for Simple Weapon {name}");
+            }
+
+            if (damageToDo <= 0)
+            {
+                Debug.LogError($"Simple weapon {name} will do no Damage");
+            }
+
+            if (timeToFire <= 0)
+            {
+                Debug.Log($"Simple Weapon {name} has an invalid time to fire");
+            }
+        }
 
         public override void Initialize(Ship ship)
         {
@@ -44,7 +69,7 @@ namespace Ships.ShipSystems.Weapons
                 var damageHandler = hitInfo.collider.GetComponentInParent<DamageableHandler>();
                 if( damageHandler != null)
                 {
-                    damageHandler.TakeDamage(damageToDo);
+                    damageHandler.TakeDamage(damageToDo, damageType);
                 }
             }
             else
