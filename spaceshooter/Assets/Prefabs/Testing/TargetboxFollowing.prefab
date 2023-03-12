@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7445787228605738216}
   - component: {fileID: 5617711493766380575}
   - component: {fileID: 7597770341925077890}
-  - component: {fileID: 5706234161852333415}
+  - component: {fileID: 7189773546790982568}
   m_Layer: 6
-  m_Name: TargetboxMoving
+  m_Name: TargetboxFollowing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
---- !u!114 &5706234161852333415
+--- !u!114 &7189773546790982568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,10 +83,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 428905934006287981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7000828b21fba46a9a4762eee731f8f3, type: 3}
+  m_Script: {fileID: 11500000, guid: a0d5c4d45f7254fd2a3170eeed3a5795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPositions: []
+  toFollow: {fileID: 0}
   speed: 0
 --- !u!1 &951650405176615865
 GameObject:
