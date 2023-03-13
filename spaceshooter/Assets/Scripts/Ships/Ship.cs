@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Damage;
 using Input;
 using Ships.ShipSystems;
+using Ships.ShipSystems.Shields;
 using UnityEngine;
 
 [assembly: InternalsVisibleTo("ShipTests")]
@@ -238,7 +239,7 @@ namespace Ships
 
         private void DamageableOnDamageTaken(float damageIn, DamageType damageType)
         {
-            var offsetDamage = _shieldSystem.ReduceDamage(damageIn);
+            var offsetDamage = _shieldSystem.ReduceDamage(damageIn, damageType);
             _hp -= offsetDamage;
             Debug.Log($"HP now {_hp} Shield level now {_shieldSystem._shieldStrength}");
             if (_hp <= 0)

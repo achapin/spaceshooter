@@ -1,3 +1,4 @@
+using Damage;
 using Ships.ShipSystems.Weapons;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ namespace Ships
         public AnimationCurve shieldRechargeRate;
         public AnimationCurve shieldRechargeTime;
         public Weapon[] weapons;
+        public DamageConfig shieldDamageConfig;
 
     }
 }

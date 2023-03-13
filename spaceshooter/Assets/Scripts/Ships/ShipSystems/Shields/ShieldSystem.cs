@@ -1,14 +1,17 @@
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Damage;
 using Input;
 using UnityEngine;
 
 [assembly: InternalsVisibleTo("ShipTests")]
-namespace Ships.ShipSystems
+namespace Ships.ShipSystems.Shields
 {
     public class ShieldSystem : IShipSystem
     {
         private ShipConfig _config;
         private Ship _ship;
+        private Dictionary<DamageType, float> _damageModifiers;
 
         internal float _currentPower;
         internal float _shieldStrength;
@@ -18,6 +21,11 @@ namespace Ships.ShipSystems
         {
             _config = config;
             _ship = ship;
+            _damageModifiers = new Dictionary<DamageType, float>();
+            foreach (var damageConfigEntry in _config.shieldDamageConfig.configEntries)
+            {
+                _damageModifiers.Add(damageConfigEntry.damageType, damageConfigEntry.multiplier);
+            }
         }
 
         public void AllocatePower(float percentage)
@@ -48,8 +56,13 @@ namespace Ships.ShipSystems
             }
         }
 
-        public float ReduceDamage(float damage)
+        public float ReduceDamage(float damage, DamageType damageType)
         {
+            if (_damageModifiers.ContainsKey(damageType))
+            {
+                damage *= _damageModifiers[damageType];
+            }
+            
             if (damage < _shieldStrength)
             {
                 _shieldStrength -= damage;
