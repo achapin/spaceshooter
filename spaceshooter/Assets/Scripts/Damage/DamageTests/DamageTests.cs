@@ -14,6 +14,7 @@ namespace Damage.DamageTests
         private const string testShipPath = "Assets/Prefabs/Testing/TestShip.prefab";
         private const string testTargetPath = "Assets/Prefabs/Testing/Targetbox.prefab";
         private const string testTargetShipPath = "Assets/Prefabs/Testing/TestShipDamageable.prefab";
+        private const string testTargetShipLaserPath = "Assets/Prefabs/Testing/TestShipDamageableLaser.prefab";
         private const string testDamageTypePath = "Assets/Data/DamageTypes/Bullet.asset";
         private AsyncOperationHandle<GameObject> shipHandle;
         private AsyncOperationHandle<GameObject> targetHandle;
@@ -124,6 +125,122 @@ namespace Damage.DamageTests
             Debug.Log($"Total damage {totalDamage} Was Destroyed? {wasDestroyed}");
             Assert.Greater(totalDamage, 0f);
             Assert.True(wasDestroyed);
+        }
+        
+        [UnityTest]
+        public IEnumerator LasersAreMoreEffectiveAgainstShields()
+        {
+            shipHandle = Addressables.InstantiateAsync(testTargetShipPath);
+            var laserShipHandle = Addressables.InstantiateAsync(testTargetShipLaserPath);
+            yield return laserShipHandle;
+            yield return shipHandle;
+            var testShip = shipHandle.Result;
+            var testLaserShip = laserShipHandle.Result;
+            testShip.transform.position = Vector3.back * 10f;
+            testShip.transform.forward = Vector3.forward;
+            testLaserShip.transform.position = Vector3.zero;
+            testLaserShip.transform.forward = Vector3.back;
+            var bulletShip = testShip.GetComponent<Ship>();
+            var laserShip = testLaserShip.GetComponent<Ship>();
+            Assert.Greater(bulletShip.PowerAllocated, 0);
+            Assert.Greater(laserShip.PowerAllocated, 0);
+
+            var waitState = new InputState
+            {
+                increaseWeaponPower = true
+            };
+            
+            //Give the shields some time to charge
+            bulletShip.SetInputState(waitState);
+            bulletShip.Update(sixtyFPS * 100f);
+            laserShip.SetInputState(waitState);
+            laserShip.Update(sixtyFPS * 100f);
+            
+            Assert.Greater(bulletShip._shieldSystem._shieldStrength, 0);
+            Assert.Greater(laserShip._shieldSystem._shieldStrength, 0);
+            
+            var firingState = new InputState
+            {
+                isFiring = true,
+                increaseWeaponPower = true
+            };
+            
+            yield return null;
+
+            var laserShipPreHealth = laserShip._hp + laserShip._shieldSystem._shieldStrength;
+            
+            bulletShip.SetInputState(firingState);
+            bulletShip.Update(sixtyFPS);
+            
+            var laserShipAfterHealth = laserShip._hp + laserShip._shieldSystem._shieldStrength;
+
+            float bulletDamage = laserShipPreHealth - laserShipAfterHealth;
+            //If this isn't before the laser ship update, then the laser ship update will cause it to regen shields, and set the bullet damage to 0
+            
+            var bulletShipPreHealth = bulletShip._hp + bulletShip._shieldSystem._shieldStrength;
+            
+            laserShip.SetInputState(firingState);
+            laserShip.Update(sixtyFPS);
+            
+            var bulletShipAfterHealth = bulletShip._hp + bulletShip._shieldSystem._shieldStrength;
+
+            float laserDamage = bulletShipPreHealth - bulletShipAfterHealth;
+
+            Assert.Greater(laserDamage, 0f, $"Laser damage was only {laserDamage}");
+            Assert.Greater(bulletDamage, 0f, $"Bullet damage was only {bulletDamage}");
+            Assert.Greater(laserDamage, bulletDamage); //Since lasers do more damage than bullets against shields, this should be true
+
+        }
+        
+        [UnityTest]
+        public IEnumerator BulletAreMoreEffectiveAgainstHull()
+        {
+            shipHandle = Addressables.InstantiateAsync(testTargetShipPath);
+            var laserShipHandle = Addressables.InstantiateAsync(testTargetShipLaserPath);
+            yield return laserShipHandle;
+            yield return shipHandle;
+            var testShip = shipHandle.Result;
+            var testLaserShip = laserShipHandle.Result;
+            testShip.transform.position = Vector3.back * 10f;
+            testShip.transform.forward = Vector3.forward;
+            testLaserShip.transform.position = Vector3.zero;
+            testLaserShip.transform.forward = Vector3.back;
+            var bulletShip = testShip.GetComponent<Ship>();
+            var laserShip = testLaserShip.GetComponent<Ship>();
+            Assert.Greater(bulletShip.PowerAllocated, 0);
+            Assert.Greater(laserShip.PowerAllocated, 0);
+
+            var firingState = new InputState
+            {
+                isFiring = true,
+                increaseWeaponPower = true
+            };
+            
+            yield return null;
+
+            var laserShipPreHealth = laserShip._hp + laserShip._shieldSystem._shieldStrength;
+            
+            bulletShip.SetInputState(firingState);
+            bulletShip.Update(sixtyFPS);
+            
+            var laserShipAfterHealth = laserShip._hp + laserShip._shieldSystem._shieldStrength;
+
+            float bulletDamage = laserShipPreHealth - laserShipAfterHealth;
+            //If this isn't before the laser ship update, then the laser ship update will cause it to regen shields, and set the bullet damage to 0
+            
+            var bulletShipPreHealth = bulletShip._hp + bulletShip._shieldSystem._shieldStrength;
+            
+            laserShip.SetInputState(firingState);
+            laserShip.Update(sixtyFPS);
+            
+            var bulletShipAfterHealth = bulletShip._hp + bulletShip._shieldSystem._shieldStrength;
+
+            float laserDamage = bulletShipPreHealth - bulletShipAfterHealth;
+
+            Assert.Greater(laserDamage, 0f, $"Laser damage was only {laserDamage}");
+            Assert.Greater(bulletDamage, 0f, $"Bullet damage was only {bulletDamage}");
+            Assert.Greater(bulletDamage, laserDamage, $"Bullet damage was {bulletDamage} which should have been > than laser damage {laserDamage}"); //Since the shields haven't charged yet, the bullets should do more damage to the hull
+            //This test is failing because the shields charging still offset the little weapon damage
         }
     }
 }

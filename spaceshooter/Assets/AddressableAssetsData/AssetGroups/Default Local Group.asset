@@ -53,6 +53,14 @@ MonoBehaviour:
     m_Address: Assets/Data/DamageTypes/Laser.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7407a08dd1d5f49c8a10f0cf8c915cc6
+    m_Address: Assets/Data/ShipConfigs/TestShipDestroyLaser.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 79d5d9b90734443afaed7b456b4d5b7b
+    m_Address: Assets/Prefabs/Testing/TestShipDamageableLaser.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d5ada1d1cf86c4d26a0a666cc89760a1, type: 2}
   m_SchemaSet:

@@ -22,9 +22,12 @@ namespace Ships.ShipSystems.Shields
             _config = config;
             _ship = ship;
             _damageModifiers = new Dictionary<DamageType, float>();
-            foreach (var damageConfigEntry in _config.shieldDamageConfig.configEntries)
+            if(config.shieldDamageConfig != null)
             {
-                _damageModifiers.Add(damageConfigEntry.damageType, damageConfigEntry.multiplier);
+                foreach (var damageConfigEntry in _config.shieldDamageConfig.configEntries)
+                {
+                    _damageModifiers.Add(damageConfigEntry.damageType, damageConfigEntry.multiplier);
+                }
             }
         }
 
