@@ -15,6 +15,8 @@ namespace Damage.DamageTests
         private const string testTargetPath = "Assets/Prefabs/Testing/Targetbox.prefab";
         private const string testTargetShipPath = "Assets/Prefabs/Testing/TestShipDamageable.prefab";
         private const string testTargetShipLaserPath = "Assets/Prefabs/Testing/TestShipDamageableLaser.prefab";
+        private const string testTargetShip0ShieldBulletPath = "Assets/Prefabs/Testing/TestShipDamageable0ShieldBullet.prefab";
+        private const string testTargetShip0ShieldLaserPath = "Assets/Prefabs/Testing/TestShipDamageable0ShieldLaser.prefab";
         private const string testDamageTypePath = "Assets/Data/DamageTypes/Bullet.asset";
         private AsyncOperationHandle<GameObject> shipHandle;
         private AsyncOperationHandle<GameObject> targetHandle;
@@ -52,7 +54,7 @@ namespace Damage.DamageTests
         }
         
         [UnityTest]
-        public IEnumerator TargetTakesDamageFromWeaponAndIsDestroyed()
+        public IEnumerator TargetTakesDamageAndIsDestroyedByAWeapon()
         {
             shipHandle = Addressables.InstantiateAsync(testShipPath);
             targetHandle = Addressables.InstantiateAsync(testTargetPath);
@@ -195,8 +197,8 @@ namespace Damage.DamageTests
         [UnityTest]
         public IEnumerator BulletAreMoreEffectiveAgainstHull()
         {
-            shipHandle = Addressables.InstantiateAsync(testTargetShipPath);
-            var laserShipHandle = Addressables.InstantiateAsync(testTargetShipLaserPath);
+            shipHandle = Addressables.InstantiateAsync(testTargetShip0ShieldBulletPath);
+            var laserShipHandle = Addressables.InstantiateAsync(testTargetShip0ShieldLaserPath);
             yield return laserShipHandle;
             yield return shipHandle;
             var testShip = shipHandle.Result;
@@ -226,8 +228,7 @@ namespace Damage.DamageTests
             var laserShipAfterHealth = laserShip._hp + laserShip._shieldSystem._shieldStrength;
 
             float bulletDamage = laserShipPreHealth - laserShipAfterHealth;
-            //If this isn't before the laser ship update, then the laser ship update will cause it to regen shields, and set the bullet damage to 0
-            
+
             var bulletShipPreHealth = bulletShip._hp + bulletShip._shieldSystem._shieldStrength;
             
             laserShip.SetInputState(firingState);
@@ -240,7 +241,6 @@ namespace Damage.DamageTests
             Assert.Greater(laserDamage, 0f, $"Laser damage was only {laserDamage}");
             Assert.Greater(bulletDamage, 0f, $"Bullet damage was only {bulletDamage}");
             Assert.Greater(bulletDamage, laserDamage, $"Bullet damage was {bulletDamage} which should have been > than laser damage {laserDamage}"); //Since the shields haven't charged yet, the bullets should do more damage to the hull
-            //This test is failing because the shields charging still offset the little weapon damage
         }
     }
 }

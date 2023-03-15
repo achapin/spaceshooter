@@ -280,3 +280,4 @@ MonoBehaviour:
   weapons:
   - {fileID: 11400000, guid: 931c440b246784f8f98a72172bf6c00b, type: 2}
   shieldDamageConfig: {fileID: 11400000, guid: 23f970aa940c440b5a37e4e47918b458, type: 2}
+  shipDamageConfig: {fileID: 11400000, guid: 3caff3f3e5cc74f2a9281d2bb0eb63b5, type: 2}

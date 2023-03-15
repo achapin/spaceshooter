@@ -26,6 +26,7 @@ namespace Ships
         public AnimationCurve shieldRechargeTime;
         public Weapon[] weapons;
         public DamageConfig shieldDamageConfig;
+        public DamageConfig shipDamageConfig;
 
     }
 }

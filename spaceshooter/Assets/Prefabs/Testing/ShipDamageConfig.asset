@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88de362055b7d484c9e1037a4ec2491a, type: 3}
+  m_Name: ShipDamageConfig
+  m_EditorClassIdentifier: 
+  configEntries:
+  - damageType: {fileID: 11400000, guid: c50809562b21047798b549caeac34274, type: 2}
+    multiplier: 0.7

@@ -61,6 +61,11 @@ namespace Ships.ShipSystems.Shields
 
         public float ReduceDamage(float damage, DamageType damageType)
         {
+            if (_shieldStrength <= 0f)
+            {
+                return damage;
+            }
+            
             if (_damageModifiers.ContainsKey(damageType))
             {
                 damage *= _damageModifiers[damageType];
@@ -73,9 +78,15 @@ namespace Ships.ShipSystems.Shields
             }
 
             _timeToRecharge = _config.shieldRechargeTime.Evaluate(_currentPower);
-            var blocked = damage - _shieldStrength;
+            var damageRemaining = damage - _shieldStrength;
             _shieldStrength = 0f;
-            return blocked;
+            
+            if (_damageModifiers.ContainsKey(damageType))
+            {
+                damageRemaining /= _damageModifiers[damageType];
+            }
+
+            return damageRemaining;
         }
 
         public float CurrentPower()

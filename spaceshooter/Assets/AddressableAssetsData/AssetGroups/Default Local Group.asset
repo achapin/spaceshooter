@@ -61,6 +61,22 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Testing/TestShipDamageableLaser.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: f0decc5ccd90649608d30ade6f6d7f4e
+    m_Address: Assets/Data/ShipConfigs/TestShipDestroyNoShieldLaser.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f4b8011419fae498fb5accbf32301845
+    m_Address: Assets/Data/ShipConfigs/TestShipDestroyNoShieldBullet.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3a9bae03e6be84a1d906972061c9a781
+    m_Address: Assets/Prefabs/Testing/TestShipDamageable0ShieldBullet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4c0bb79445e0442af856d04b941d6af4
+    m_Address: Assets/Prefabs/Testing/TestShipDamageable0ShieldLaser.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d5ada1d1cf86c4d26a0a666cc89760a1, type: 2}
   m_SchemaSet:

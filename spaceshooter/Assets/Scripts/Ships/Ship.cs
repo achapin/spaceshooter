@@ -27,6 +27,7 @@ namespace Ships
 
         internal DamageableHandler _damageableHandler;
         internal float _hp;
+        private Dictionary<DamageType, float> _damageModifiers;
 
         void Start()
         {
@@ -57,6 +58,14 @@ namespace Ships
             }
 
             _hp = config.maxHp;
+            _damageModifiers = new Dictionary<DamageType, float>();
+            if(config.shieldDamageConfig != null)
+            {
+                foreach (var damageConfigEntry in config.shipDamageConfig.configEntries)
+                {
+                    _damageModifiers.Add(damageConfigEntry.damageType, damageConfigEntry.multiplier);
+                }
+            }
             _damageableHandler = GetComponent<DamageableHandler>();
             if(_damageableHandler != null)
             {
@@ -240,6 +249,12 @@ namespace Ships
         private void DamageableOnDamageTaken(float damageIn, DamageType damageType)
         {
             var offsetDamage = _shieldSystem.ReduceDamage(damageIn, damageType);
+            
+            if (_damageModifiers.ContainsKey(damageType))
+            {
+                offsetDamage *= _damageModifiers[damageType];
+            }
+            
             _hp -= offsetDamage;
             Debug.Log($"{gameObject.name} HP now {_hp} Shield level now {_shieldSystem._shieldStrength}");
             if (_hp <= 0)

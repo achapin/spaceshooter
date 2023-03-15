@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53625b7576078466c834316ed35d0580, type: 3}
-  m_Name: TestShipDestroy
+  m_Name: TestShipDestroyNoShieldLaser
   m_EditorClassIdentifier: 
   energyCapacity: 2
   maxHp: 1
@@ -228,7 +228,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  shieldCapacity: 100
+  shieldCapacity: 0
   shieldRechargeRate:
     serializedVersion: 2
     m_Curve:
@@ -278,6 +278,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   weapons:
-  - {fileID: 11400000, guid: af97ca5b5ddc44a5fa28c561cca053fd, type: 2}
+  - {fileID: 11400000, guid: 931c440b246784f8f98a72172bf6c00b, type: 2}
   shieldDamageConfig: {fileID: 11400000, guid: 23f970aa940c440b5a37e4e47918b458, type: 2}
   shipDamageConfig: {fileID: 11400000, guid: 3caff3f3e5cc74f2a9281d2bb0eb63b5, type: 2}
