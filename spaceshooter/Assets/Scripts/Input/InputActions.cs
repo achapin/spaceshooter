@@ -100,6 +100,15 @@ namespace Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LevelOut"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a0c764f-f239-4c9d-ab7d-004bf04c767c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -311,6 +320,39 @@ namespace Input
                     ""action"": ""FirePrimary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""260f5a6f-5c97-4bb4-a28c-741f6cea93dc"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelOut"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""baa84e6c-4f6b-43e0-bd69-cfa2e7c90141"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelOut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""e184fc38-901e-4ca1-8a30-e4d7aa4545b8"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelOut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -327,6 +369,7 @@ namespace Input
             m__1SeatFlight_PowerIncreaseShieldSystem = m__1SeatFlight.FindAction("PowerIncreaseShieldSystem", throwIfNotFound: true);
             m__1SeatFlight_PowerIncreaseWeaponSystem = m__1SeatFlight.FindAction("PowerIncreaseWeaponSystem", throwIfNotFound: true);
             m__1SeatFlight_FirePrimary = m__1SeatFlight.FindAction("FirePrimary", throwIfNotFound: true);
+            m__1SeatFlight_LevelOut = m__1SeatFlight.FindAction("LevelOut", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -394,6 +437,7 @@ namespace Input
         private readonly InputAction m__1SeatFlight_PowerIncreaseShieldSystem;
         private readonly InputAction m__1SeatFlight_PowerIncreaseWeaponSystem;
         private readonly InputAction m__1SeatFlight_FirePrimary;
+        private readonly InputAction m__1SeatFlight_LevelOut;
         public struct _1SeatFlightActions
         {
             private @InputActions m_Wrapper;
@@ -406,6 +450,7 @@ namespace Input
             public InputAction @PowerIncreaseShieldSystem => m_Wrapper.m__1SeatFlight_PowerIncreaseShieldSystem;
             public InputAction @PowerIncreaseWeaponSystem => m_Wrapper.m__1SeatFlight_PowerIncreaseWeaponSystem;
             public InputAction @FirePrimary => m_Wrapper.m__1SeatFlight_FirePrimary;
+            public InputAction @LevelOut => m_Wrapper.m__1SeatFlight_LevelOut;
             public InputActionMap Get() { return m_Wrapper.m__1SeatFlight; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -439,6 +484,9 @@ namespace Input
                     @FirePrimary.started -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnFirePrimary;
                     @FirePrimary.performed -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnFirePrimary;
                     @FirePrimary.canceled -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnFirePrimary;
+                    @LevelOut.started -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnLevelOut;
+                    @LevelOut.performed -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnLevelOut;
+                    @LevelOut.canceled -= m_Wrapper.m__1SeatFlightActionsCallbackInterface.OnLevelOut;
                 }
                 m_Wrapper.m__1SeatFlightActionsCallbackInterface = instance;
                 if (instance != null)
@@ -467,6 +515,9 @@ namespace Input
                     @FirePrimary.started += instance.OnFirePrimary;
                     @FirePrimary.performed += instance.OnFirePrimary;
                     @FirePrimary.canceled += instance.OnFirePrimary;
+                    @LevelOut.started += instance.OnLevelOut;
+                    @LevelOut.performed += instance.OnLevelOut;
+                    @LevelOut.canceled += instance.OnLevelOut;
                 }
             }
         }
@@ -481,6 +532,7 @@ namespace Input
             void OnPowerIncreaseShieldSystem(InputAction.CallbackContext context);
             void OnPowerIncreaseWeaponSystem(InputAction.CallbackContext context);
             void OnFirePrimary(InputAction.CallbackContext context);
+            void OnLevelOut(InputAction.CallbackContext context);
         }
     }
 }

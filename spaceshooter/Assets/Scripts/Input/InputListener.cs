@@ -105,6 +105,16 @@ namespace Input
                         _inputState.isFiring = false;
                     }
                     break;
+                case "LevelOut":
+                    if (obj.performed)
+                    {
+                        _inputState.shouldLevelOut = true;
+                    }
+                    else
+                    {
+                        _inputState.shouldLevelOut = false;
+                    }
+                    break;
             }
         }
 

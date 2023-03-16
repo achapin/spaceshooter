@@ -18,5 +18,7 @@ namespace Input
         
         //0-1/0-1
         public Vector2 joystick;
+
+        public bool shouldLevelOut;
     }
 }

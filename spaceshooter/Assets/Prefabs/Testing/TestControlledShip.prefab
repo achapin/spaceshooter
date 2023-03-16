@@ -320,3 +320,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  damageType: {fileID: 11400000, guid: 04923f13813cc4f8b992b85ce8493156, type: 2}

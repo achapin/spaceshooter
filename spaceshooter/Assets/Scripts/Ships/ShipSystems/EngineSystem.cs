@@ -87,9 +87,8 @@ namespace Ships.ShipSystems
                 }
                 _transform.Rotate(rotateVector, angleToRotate, Space.World);
             }
-            //Auto-restitution feels good for general flight, but makes keeping shots on target harder.
-            //Might also be easier for keyboard controls, as joysticks give more control over the granularity...
-            else
+            
+            if(inputState.shouldLevelOut)
             {
                 var straightforwardVector = Vector3.Cross(rotateVector, Vector3.up);
                 var angleToForward = Vector3.Angle(straightforwardVector, _transform.forward);
