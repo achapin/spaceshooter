@@ -236,7 +236,7 @@ namespace Input
                 {
                     ""name"": ""negative"",
                     ""id"": ""7b1a013e-f12d-4b23-9f40-465e1956af9f"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -247,7 +247,7 @@ namespace Input
                 {
                     ""name"": ""positive"",
                     ""id"": ""57ee0a77-0659-4fc7-ad57-1ebc9fb75cb7"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -268,8 +268,30 @@ namespace Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9eb8f59c-9a78-497b-baaa-8495f4210815"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""4183186e-e1a6-4651-b8ef-825726e22253"",
                     ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerBalance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc20c797-402e-41e1-ae31-60b70bb3b910"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -290,8 +312,30 @@ namespace Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3beb44d5-0ca4-4bd6-9dfe-41a8755ce312"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerIncreaseEngineSystem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""dd464209-47ea-4eba-a81a-74e2c48bd50f"",
                     ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerIncreaseShieldSystem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee16d9a6-c0cf-4ffd-99d5-b6379a14c4ca"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -312,8 +356,30 @@ namespace Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a3a0a146-fb97-43bf-8405-9e7bca82c334"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerIncreaseWeaponSystem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""cbd15ba4-1b8c-4c9f-a0e6-77a6f16dcff2"",
                     ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FirePrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65810f87-3c2d-45e8-acc4-1d2a51532379"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
