@@ -112,6 +112,10 @@ All weapons will consume weapon power when fired, and if the weapons systems don
 - Torpedoes: Lock-on, but too slow to be useful against fighter craft. For objectives only
 - Bombs: Dropped, unguided, for objectives only. Or an achievement for dropping one on an enemy 
 
+#### Weapon handling
+
+As the expected to be using a controller / be a human. Lead-ahead and aim assist will be necessary
+
 ### Shields
 Ships will have shields that get depleted upon taking damage before hull damage starts to accumulate.  I like the concept of angling shields, but I think this is a system that will differ on a per-ship basis. Smaller ships might not have any zoned shielding, medium sized ships have a basic fore/rear shield setup, and larger ships might even have 4 different angles to manage - something that is probably too much for a single player to handle, hence the necessity for a copilot. An overcharged shield system will provide more resistance, and recharge faster.
 
