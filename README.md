@@ -150,3 +150,16 @@ Some weapons need very little information: just the state of the trigger, and th
 - Defender (Original XBox version): https://xboxaddict.com/game-profile/Xbox/260/Defender.html
 - Star Wars Squadrons: https://en.wikipedia.org/wiki/Star_Wars:_Squadrons
 - Elite Dangerous: https://en.wikipedia.org/wiki/Elite_Dangerous
+- Chorus: https://store.steampowered.com/app/1153640/Chorus/
+
+# Next Tasks
+- Aim assist
+- Simple weapon with multiple streams, in visuals at least
+- Lock-on weapon
+- Turret weapon
+- Bomb weapon
+- Visual assets
+- First mission
+-- Level Layout
+-- Objectives format
+- Network State Sync
