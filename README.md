@@ -163,3 +163,5 @@ Some weapons need very little information: just the state of the trigger, and th
 -- Level Layout
 -- Objectives format
 - Network State Sync
+- UI
+- Enemies
