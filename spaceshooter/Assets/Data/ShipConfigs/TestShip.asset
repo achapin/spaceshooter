@@ -278,5 +278,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   weapons:
-  - {fileID: 11400000, guid: af97ca5b5ddc44a5fa28c561cca053fd, type: 2}
+  - {fileID: 11400000, guid: 6a01660aa1feb447dbaf4dde3e74dbba, type: 2}
   shieldDamageConfig: {fileID: 0}
+  shipDamageConfig: {fileID: 0}

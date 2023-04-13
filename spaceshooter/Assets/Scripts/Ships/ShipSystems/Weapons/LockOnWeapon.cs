@@ -51,6 +51,7 @@ namespace Ships.ShipSystems.Weapons
                 if (target == null || lockPoints < lockOnRequired)
                 {
                     cooldown = cooldownTimeAfterRelease;
+                    target = null;
                 }
                 else
                 {
@@ -62,8 +63,42 @@ namespace Ships.ShipSystems.Weapons
 
             if (target == null)
             {
-                //TODO:
-                //Spherecast, and find the closest target to nominate
+                Debug.Log("Seeking target");
+                float angle = float.MaxValue;
+                DamageableHandler targetCandidate = null;
+                foreach (var collider in Physics.OverlapSphere(_ship.transform.position, lockRange))
+                {
+                    if (collider.gameObject.GetComponent<DamageableHandler>() != null)
+                    {
+                        Vector3 toTarget = collider.transform.position - _ship.transform.position;
+                        var angleToTarget = Vector3.Angle(toTarget, _ship.transform.forward); 
+                        if (angleToTarget > maxHitAngle)
+                        {
+                            Debug.DrawLine(collider.transform.position, _ship.transform.position, Color.red, .5f);
+                            continue;
+                        }
+
+                        var targetDistance = Vector3.Distance(collider.transform.position, _ship.transform.position); 
+                        if (targetDistance < fireRange)
+                        {
+                            if(angleToTarget < angle)
+                            {
+                                Debug.DrawLine(collider.transform.position, _ship.transform.position, Color.green, .5f);
+                                targetCandidate = collider.gameObject.GetComponent<DamageableHandler>();
+                                angle = angleToTarget;
+                            }
+                            else
+                            {
+                                Debug.DrawLine(collider.transform.position, _ship.transform.position, Color.yellow, .5f);
+                            }
+                        }
+                    }
+                }
+                target = targetCandidate;
+                if (target != null)
+                {
+                    Debug.Log($"Selected target {target.gameObject.name}");
+                }
             }
             //TODO:
             //Charge lock-on percentage based on how close the target is to the lock-on line
