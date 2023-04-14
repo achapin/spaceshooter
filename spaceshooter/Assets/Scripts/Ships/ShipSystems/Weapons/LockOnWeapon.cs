@@ -47,23 +47,26 @@ namespace Ships.ShipSystems.Weapons
 
             if (!inputState.isFiring)
             {
-                //TODO: Check maximum distance and angle as well
-                if (target == null || lockPoints < lockOnRequired)
+                if (target != null)
                 {
-                    cooldown = cooldownTimeAfterRelease;
-                    target = null;
+                    //TODO: Check maximum distance and angle as well
+                    if (lockPoints < lockOnRequired)
+                    {
+                        ReleaseTarget();
+                    }
+                    else
+                    {
+                        //TODO: VFX?
+                        cooldown = cooldownTimeAfterFire;
+                        target.TakeDamage(damage, damageType);
+                    }
                 }
-                else
-                {
-                    cooldown = cooldownTimeAfterFire;
-                    target.TakeDamage(damage, damageType);
-                }
+
                 return;
             }
 
             if (target == null)
             {
-                Debug.Log("Seeking target");
                 float angle = float.MaxValue;
                 DamageableHandler targetCandidate = null;
                 foreach (var collider in Physics.OverlapSphere(_ship.transform.position, lockRange))
@@ -78,8 +81,8 @@ namespace Ships.ShipSystems.Weapons
                             continue;
                         }
 
-                        var targetDistance = Vector3.Distance(collider.transform.position, _ship.transform.position); 
-                        if (targetDistance < fireRange)
+                        var distance = Vector3.Distance(collider.transform.position, _ship.transform.position); 
+                        if (distance < fireRange)
                         {
                             if(angleToTarget < angle)
                             {
@@ -99,9 +102,29 @@ namespace Ships.ShipSystems.Weapons
                 {
                     Debug.Log($"Selected target {target.gameObject.name}");
                 }
+                else
+                {
+                    return;
+                }
             }
-            //TODO:
-            //Charge lock-on percentage based on how close the target is to the lock-on line
+            
+            Vector3 towardsTarget = target.transform.position - _ship.transform.position;
+            var targetAngle = Vector3.Angle(towardsTarget, _ship.transform.forward);
+            var targetDistance = Vector3.Distance(target.transform.position, _ship.transform.position);
+            if (targetDistance > fireRange || targetAngle > maxHitAngle)
+            {
+                ReleaseTarget();
+            }
+            else
+            {
+                lockPoints += lockPointsPerSecondByAngle.Evaluate(targetAngle) * deltaTime;
+            }
+        }
+
+        private void ReleaseTarget()
+        {
+            cooldown = cooldownTimeAfterRelease;
+            target = null;
         }
     }
 }
