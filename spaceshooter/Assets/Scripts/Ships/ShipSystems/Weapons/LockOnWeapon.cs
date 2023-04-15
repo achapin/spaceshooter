@@ -52,14 +52,16 @@ namespace Ships.ShipSystems.Weapons
                     //TODO: Check maximum distance and angle as well
                     if (lockPoints < lockOnRequired)
                     {
-                        ReleaseTarget();
+                        Debug.Log($"Released with {lockPoints} / {lockOnRequired} points. Clearing");
                     }
                     else
                     {
                         //TODO: VFX?
+                        Debug.Log($"Released with {lockPoints} points. Damaging and clearing");
                         cooldown = cooldownTimeAfterFire;
                         target.TakeDamage(damage, damageType);
                     }
+                    ReleaseTarget();
                 }
 
                 return;
@@ -113,6 +115,7 @@ namespace Ships.ShipSystems.Weapons
             var targetDistance = Vector3.Distance(target.transform.position, _ship.transform.position);
             if (targetDistance > fireRange || targetAngle > maxHitAngle)
             {
+                Debug.Log($"Target has gone out of range or angle");
                 ReleaseTarget();
             }
             else
@@ -123,6 +126,7 @@ namespace Ships.ShipSystems.Weapons
 
         private void ReleaseTarget()
         {
+            lockPoints = 0f;
             cooldown = cooldownTimeAfterRelease;
             target = null;
         }
