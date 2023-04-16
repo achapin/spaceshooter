@@ -20,16 +20,16 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
+      value: 5
+      inSlope: 0.000050035556
+      outSlope: 0.000050035556
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.046379168
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 90
+      value: 0.01
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -44,3 +44,4 @@ MonoBehaviour:
   lockRange: 50
   fireRange: 35
   maxHitAngle: 90
+  chargeToSpend: 0.3

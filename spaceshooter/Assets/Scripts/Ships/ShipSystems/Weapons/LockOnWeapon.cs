@@ -25,12 +25,15 @@ namespace Ships.ShipSystems.Weapons
         public float fireRange;
         //Maximum angle from the forward vector which the weapon will still hit
         public float maxHitAngle;
+        //Power required to start charging the weapon
+        public float chargeToSpend;
         
         private Ship _ship;
 
         private DamageableHandler target;
         private float lockPoints;
         private float cooldown;
+        private bool hasSpentCharge;
         
         public override void Initialize(Ship ship)
         {
@@ -65,6 +68,18 @@ namespace Ships.ShipSystems.Weapons
                 }
 
                 return;
+            }
+            
+            if (!hasSpentCharge)
+            {
+                if (weaponSystem.ExpendCharge(chargeToSpend))
+                {
+                    hasSpentCharge = true;
+                }
+                else
+                {
+                    return;
+                }
             }
 
             if (target == null)
@@ -129,6 +144,7 @@ namespace Ships.ShipSystems.Weapons
             lockPoints = 0f;
             cooldown = cooldownTimeAfterRelease;
             target = null;
+            hasSpentCharge = false;
         }
     }
 }
