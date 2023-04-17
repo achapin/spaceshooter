@@ -12,7 +12,7 @@ namespace Ships.ShipSystems
     {
         private ShipConfig _config;
         private Ship _ship;
-        private List<Weapon> _weapons;
+        internal List<Weapon> _weapons;
 
         private float _currentPower;
         

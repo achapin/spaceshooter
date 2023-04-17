@@ -1,10 +1,11 @@
+using System.Runtime.CompilerServices;
 using Damage;
 using Input;
 using UnityEngine;
 
+[assembly: InternalsVisibleTo("WeaponTests")]
 namespace Ships.ShipSystems.Weapons
 {
-    
     [CreateAssetMenu(fileName = "LockOnWeapon", menuName = "Weapons/LockOnWeapon", order = 2)]
     public class LockOnWeapon : Weapon
     {
@@ -30,8 +31,8 @@ namespace Ships.ShipSystems.Weapons
         
         private Ship _ship;
 
-        private DamageableHandler target;
-        private float lockPoints;
+        internal DamageableHandler target;
+        internal float lockPoints;
         private float cooldown;
         private bool hasSpentCharge;
         

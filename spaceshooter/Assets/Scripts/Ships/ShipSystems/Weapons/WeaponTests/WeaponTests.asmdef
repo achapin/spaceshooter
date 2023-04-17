@@ -1,14 +1,14 @@
 {
-    "name": "ShipTests",
+    "name": "WeaponTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Ships",
+        "Damage",
         "Input",
         "Unity.Addressables",
-        "Unity.ResourceManager",
-        "Damage"
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [
         "Editor"

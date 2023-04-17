@@ -77,6 +77,10 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Testing/TestShipDamageable0ShieldLaser.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: df3d5d5342ded4c9a93b37a432699c3e
+    m_Address: Assets/Data/ShipConfigs/TestShipLockOnWeapon.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d5ada1d1cf86c4d26a0a666cc89760a1, type: 2}
   m_SchemaSet:
