@@ -54,7 +54,7 @@ namespace Ships.ShipSystems.Weapons.WeaponTests
             }
             
             Assert.IsNotNull(lockOnWeapon.target);
-            Assert.ReferenceEquals(lockOnWeapon.target.gameObject, testTarget);
+            Assert.True(lockOnWeapon.target.gameObject == testTarget);
         }
     }
 }

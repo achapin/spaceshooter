@@ -10,9 +10,7 @@
         "Unity.ResourceManager",
         "Damage"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
