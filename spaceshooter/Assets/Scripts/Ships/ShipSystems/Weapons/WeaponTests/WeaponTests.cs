@@ -200,15 +200,16 @@ namespace Ships.ShipSystems.Weapons.WeaponTests
             Assert.True(chargedFullyAhead);
             
             ship.SetInputState(new InputState());
-            ship.Update(sixtyFPS);
+            ship.Update(sixtyFPS); //Release, and fire
+            ship.SetInputState(new InputState());
+            ship.Update(3.1f); //Go through cooldown
 
             float timeToChargeOffset = 0f;
             bool chargedOffset = false;
             lastPoints = lockOnWeapon.lockPoints;
             Assert.AreEqual(0f, lastPoints);
-            testTarget.transform.position = new Vector3(5f, 0f, 10f);
+            testTarget.transform.position = Vector3.forward * 5f + Vector3.left;
 
-            yield return null;
             for (var loop = 0; loop < 100; loop++)
             {
                 ship.SetInputState(state);
@@ -232,6 +233,7 @@ namespace Ships.ShipSystems.Weapons.WeaponTests
             
             Assert.True(chargedOffset);
             Assert.Greater(timeToChargeOffset, timeToChargeAhead);
+            Debug.Log($"Time to Charge Ahead:{timeToChargeAhead} Offset:{timeToChargeOffset}");
         }
     }
 }
