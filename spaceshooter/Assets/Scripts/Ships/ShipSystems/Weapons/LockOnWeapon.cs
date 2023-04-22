@@ -33,7 +33,7 @@ namespace Ships.ShipSystems.Weapons
 
         internal DamageableHandler target;
         internal float lockPoints;
-        private float cooldown;
+        internal float cooldown;
         private bool hasSpentCharge;
         
         public override void Initialize(Ship ship)
@@ -57,6 +57,7 @@ namespace Ships.ShipSystems.Weapons
                     if (lockPoints < lockOnRequired)
                     {
                         Debug.Log($"Released with {lockPoints} / {lockOnRequired} points. Clearing");
+                        cooldown = cooldownTimeAfterRelease;
                     }
                     else
                     {
@@ -132,6 +133,7 @@ namespace Ships.ShipSystems.Weapons
             if (targetDistance > fireRange || targetAngle > maxHitAngle)
             {
                 Debug.Log($"Target has gone out of range or angle");
+                cooldown = cooldownTimeAfterRelease;
                 ReleaseTarget();
             }
             else
@@ -143,7 +145,6 @@ namespace Ships.ShipSystems.Weapons
         private void ReleaseTarget()
         {
             lockPoints = 0f;
-            cooldown = cooldownTimeAfterRelease;
             target = null;
             hasSpentCharge = false;
         }
