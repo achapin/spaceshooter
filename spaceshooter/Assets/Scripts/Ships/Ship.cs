@@ -29,6 +29,12 @@ namespace Ships
         internal float _hp;
         private Dictionary<DamageType, float> _damageModifiers;
 
+        public EngineSystem engineSystem => _engineSystem;
+        public WeaponSystem weaponSystem => _weaponSystem;
+        public ShieldSystem shieldSystem => _shieldSystem;
+        public float HP => _hp;
+        public ShipConfig Config => config;
+
         void Start()
         {
             if (config == null)

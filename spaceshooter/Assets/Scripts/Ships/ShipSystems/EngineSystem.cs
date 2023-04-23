@@ -23,6 +23,9 @@ namespace Ships.ShipSystems
 
         internal float _boostReserve;
 
+        public float Throttle => _throttle;
+        public float Speed => _currentSpeed;
+
         public void Initialize(ShipConfig config, Ship ship)
         {
             _config = config;
