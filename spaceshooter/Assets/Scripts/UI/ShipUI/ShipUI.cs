@@ -1,4 +1,5 @@
 using Ships;
+using Ships.ShipSystems;
 using TMPro;
 using UnityEngine;
 
@@ -22,11 +23,16 @@ namespace UI.ShipUI
                 return;
             }
 
-            speedText.text = targetShip.engineSystem.Speed + " m/s";
-            throttleText.text = targetShip.engineSystem.Throttle + " %";
-            enginePowerText.text = (targetShip.engineSystem.CurrentPower() / targetShip.Config.energyCapacity) + " %";
-            shieldPowerText.text = (targetShip.shieldSystem.CurrentPower() / targetShip.Config.energyCapacity) + " %";
-            weaponPowerText.text = (targetShip.weaponSystem.CurrentPower() / targetShip.Config.energyCapacity) + " %";
+            speedText.text = Mathf.RoundToInt(targetShip.engineSystem.Speed) + " m/s";
+            throttleText.text = Mathf.RoundToInt(targetShip.engineSystem.Throttle * 100f) + " %";
+            enginePowerText.text = PowerPercent(targetShip.engineSystem);
+            shieldPowerText.text = PowerPercent(targetShip.shieldSystem);
+            weaponPowerText.text = PowerPercent(targetShip.weaponSystem);
+        }
+
+        private string PowerPercent(IShipSystem system)
+        {
+            return Mathf.RoundToInt((system.CurrentPower() / targetShip.Config.energyCapacity) * 100f) +" %";
         }
     }
 }
