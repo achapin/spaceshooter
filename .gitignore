@@ -65,3 +65,5 @@ spaceshooter/obj*
 spaceshooter/UserSettings*
 spaceshooter/Recordings/*
 behindthescenes/*
+.DS_Store
+.idea
